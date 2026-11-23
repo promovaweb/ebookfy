@@ -91,3 +91,13 @@ Confirme o destino autorizado para distribuição. Depois do envio, baixe os exe
 Em um projeto com reading-order.txt, use a ordem explícita do guia. Para um ebook de conteúdo, separe o manuscrito por títulos e preserve as notas de pesquisa e revisão fora da leitura.
 
 Transfira os metadados para o TOML e os recursos para as pastas de capítulo. Compare o texto e a sequência das novas saídas com a edição anterior.
+
+## Conduzir uma revisão com o agente
+
+Suponha que o capítulo da oficina já tenha texto e uma figura. Abra o agente na cópia do livro e peça a revisão de um capítulo específico. Informe o resultado esperado e os arquivos que ele pode consultar. Este pedido é suficiente para iniciar uma leitura dirigida.
+
+> Use ebookfy-12-revisar no segundo capítulo. Confira se os passos permitem preparar a bancada com os materiais citados, se a imagem está na pasta do capítulo e se os créditos identificam sua origem. Registre os trechos que precisam de ajuste antes de editar.
+
+Depois da leitura, compare as observações com a passagem mencionada. Quando uma instrução de montagem precisar mudar, peça um ajuste naquele trecho e repita a prova de leitura. A revisão editorial precisa examinar o exemplo e seu efeito no texto. A compilação verifica outra parte do trabalho, como a disponibilidade dos recursos e a leitura dos formatos de saída.
+
+Para migrar um projeto antigo, comece pela skill 15 e volte à organização ou ao planejamento conforme o estado das fontes. Para trocar apenas a figura de um capítulo, entre pela skill 05, revise os créditos e passe à exportação. A sequência serve como percurso para um livro novo e permite retomar tarefas pontuais de uma edição existente.

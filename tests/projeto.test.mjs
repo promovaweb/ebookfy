@@ -57,3 +57,27 @@ test("ficha, formatos selecionados e diagnóstico de capítulo ausente", (t) => 
   assert.notEqual(erro.status, 0);
   assert.equal(JSON.parse(erro.stdout).ok, false);
 });
+
+test("consulta a ficha dentro do capítulo e isola livros e repositórios vizinhos", (t) => {
+  const cwd = mkdtempSync(join(tmpdir(), "ebookfy-subpasta-"));
+  t.after(() => rmSync(cwd, { recursive: true, force: true }));
+  for (const nome of ["manual", "editorial", "brand", "ebook.toml"]) {
+    cpSync(new URL(nome, raiz), join(cwd, nome), { recursive: true });
+  }
+  const pasta = join(cwd, "manual", "01-primeira-edicao");
+  writeFileSync(
+    join(pasta, "CHAPTER.md"),
+    "~~~bash\n# Comentário\n~~~\n\n# **Título** do capítulo ###\n",
+  );
+  const consultar = () =>
+    spawnSync("bun", [cli, "info", "--json"], { cwd: pasta, encoding: "utf8" });
+  const livro = consultar();
+  assert.equal(livro.status, 0, livro.stdout);
+  assert.equal(
+    JSON.parse(livro.stdout).data.chapters[0].title,
+    "Título do capítulo",
+  );
+  writeFileSync(join(pasta, ".git"), "gitdir: exemplo");
+  const semLivro = consultar();
+  assert.equal(JSON.parse(semLivro.stdout).error.name, "NOT_FOUND");
+});

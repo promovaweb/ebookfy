@@ -11,6 +11,7 @@
  * `Command` and register it in `commands.ts`. The stub in `template/command/`
  * shows the expected shape.
  */
+import { SKILL_TOPICS } from "../skill/topics.ts";
 import type { ExitCode } from "../app/exit-codes.ts";
 
 /** Positional argument. */
@@ -124,7 +125,7 @@ export const GLOBAL_OPTIONS: readonly OptionDefinition[] = Object.freeze([
   },
   {
     name: "--skill",
-    argument: { name: "topic", optional: true, values: ["cli", "tui", "mcp", "config", "exit-codes", "reference"] },
+    argument: { name: "topic", optional: true, values: SKILL_TOPICS },
     description:
       "Print the full documentation embedded in the binary, written for AI agents. With a topic, print only that section.",
     recursive: true,

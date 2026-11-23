@@ -15,7 +15,7 @@ ebookfy --version
 
 ## Primeiro livro
 
-Use o template privado com uma conta que tenha acesso à organização. A primeira execução pode usar o livro de exemplo como está.
+Use o template privado com acesso ao repositório da organização. A primeira execução pode usar o livro de exemplo como está.
 
 ```bash
 gh repo clone promovaweb/ebookfy-starter-kit meu-livro
@@ -27,15 +27,17 @@ ebookfy build
 
 Edite `ebook.toml` na raiz para definir autoria, capa, ordem dos capítulos, pasta de saída e formatos. Cada capítulo tem seu próprio `CHAPTER.md` e pode guardar figuras na pasta `imagens/` ao lado do texto. O CLI imprime os caminhos dos arquivos gerados.
 
+![TUI do Ebookfy com a ficha editorial e o sumário do manual](manual/07-terminal/imagens/tui-livro.png)
+
 ## Skills e documentação
 
-O starter kit já traz as skills numeradas. Para instalá-las em outro projeto, execute o comando na pasta do livro com uma conta Git autorizada.
+O starter kit já traz as skills numeradas. Para instalá-las em outro projeto, execute o comando na pasta do livro com acesso Git ao framework.
 
 ```bash
 npx skills add promovaweb/ebookfy -a universal -a claude-code -a codex -a opencode -y
 ```
 
-Consulte o [manual editável](manual/01-primeira-edicao/CHAPTER.md), a [documentação do terminal](docs/README.md) ou baixe o [PDF](ebook/manual-ebookfy-v0.1.0.pdf), o [EPUB](ebook/manual-ebookfy-v0.1.0.epub) e o [MOBI](ebook/manual-ebookfy-v0.1.0.mobi). Em automações, use `ebookfy info --json`. A referência embutida está disponível com `ebookfy --skill`.
+Consulte o [manual editável](manual/01-primeira-edicao/CHAPTER.md), a [documentação completa](docs/README.md) ou baixe o [PDF](ebook/manual-ebookfy-v0.1.1.pdf), o [EPUB](ebook/manual-ebookfy-v0.1.1.epub) e o [MOBI](ebook/manual-ebookfy-v0.1.1.mobi). Em automações, use `ebookfy info --json`. A referência embutida está disponível com `ebookfy --skill`.
 
 ## Feito com
 

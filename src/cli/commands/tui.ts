@@ -10,11 +10,11 @@ import type { Command } from "../registry.ts";
 
 export const tuiCommand: Command = {
   name: "tui",
-  description: "Open the terminal interface (Overview and About). Requires a TTY.",
+  description: "Abre a interface do terminal na aba selecionada.",
   options: [
     {
       name: "--tab",
-      argument: { name: "tab", values: ["overview", "about"] },
+      argument: { name: "tab", values: ["overview", "settings", "credentials", "docs", "about"] },
       description: "Initial tab. Overrides tui.initialTab from settings.json.",
     },
   ],

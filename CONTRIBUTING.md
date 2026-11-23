@@ -11,3 +11,9 @@ Atualize a validação de `src/book/project.ts` e o capítulo de configuração 
 ## Publicação
 
 Use a versão de `VERSION` no pacote, no lockfile, no TOML do manual e no changelog. Gere e abra PDF, EPUB e MOBI. Faça o commit, crie a tag e a GitHub Release privada. Na máquina autenticada da Promovaweb, execute `npm pack` no commit da tag e publique o tarball com `npm publish ./promovaweb-ebookfy-X.Y.Z.tgz --access public`. Confirme a versão com `npm view @promovaweb/ebookfy version`. O npm distribui o CLI compilado, o kit de impressão e a marca.
+
+## Conferir a documentação e as capturas
+
+As páginas de produção em `manual/` alimentam o livro e o tópico `ebook` da documentação embutida. Rode `npm start -- --skill ebook` e confira as entradas na aba Docs com `npm start -- tui --tab docs`. As figuras da interface ficam em `manual/07-terminal/imagens/`, ao lado do capítulo que as utiliza.
+
+Para atualizar as capturas, abra o próprio manual na TUI com um perfil isolado em `EBOOKFY_HOME`. Capture a janela na aba Livro e novamente na aba Docs, com os títulos e o texto legíveis. Depois do build, confira a página ilustrada no PDF e as imagens incorporadas no EPUB. Ao mudar a edição do próprio manual, atualize também a imagem de capa digital com o título e a versão correntes.

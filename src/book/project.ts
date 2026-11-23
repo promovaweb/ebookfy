@@ -1,6 +1,22 @@
 /** Contrato editorial compartilhado pelo terminal, pelo painel e pelo compilador. */
-import { readFileSync, realpathSync, statSync } from "node:fs";
-import { basename, isAbsolute, relative, resolve, sep } from "node:path";
+import {
+  closeSync,
+  openSync,
+  readSync,
+  existsSync,
+  readFileSync,
+  realpathSync,
+  statSync,
+} from "node:fs";
+import {
+  basename,
+  dirname,
+  isAbsolute,
+  relative,
+  resolve,
+  sep,
+} from "node:path";
+import { error } from "../app/errors.ts";
 import { z } from "zod";
 
 const texto = z.string().trim().min(1);
@@ -48,9 +64,50 @@ export function local(root: string, value: string): string {
   return path;
 }
 
+/** Procura a ficha mais próxima sem atravessar a raiz de um repositório Git. */
+export function localizarLivro(inicio = process.cwd()): string | undefined {
+  let pasta = realpathSync(inicio);
+  while (true) {
+    if (existsSync(resolve(pasta, "ebook.toml"))) return pasta;
+    const acima = dirname(pasta);
+    if (acima === pasta || existsSync(resolve(pasta, ".git"))) return undefined;
+    pasta = acima;
+  }
+}
+
+/** Lê somente o início de capítulos com título simples. Nos demais, interpreta o Markdown. */
+function tituloDaSecao(path: string, root: string): string {
+  const fd = openSync(path, "r");
+  try {
+    const inicio = Buffer.alloc(1024);
+    const lidos = readSync(fd, inicio, 0, inicio.length, 0);
+    const primeira = /^# ([\p{L}\p{M}\p{N} ,.:;!?()/-]+)\r?\n/u.exec(
+      inicio.toString("utf8", 0, lidos),
+    );
+    if (primeira?.[1]?.trim()) return primeira[1].trim();
+
+    let titulo = "";
+    Bun.markdown.render(readFileSync(fd, "utf8"), {
+      heading(conteudo, { level }) {
+        if (level === 1 && !titulo) titulo = conteudo.trim();
+        return "";
+      },
+    });
+    if (!titulo)
+      throw new Error("Inclua um título de nível 1 em " + relative(root, path));
+    return titulo;
+  } finally {
+    closeSync(fd);
+  }
+}
+
 /** Abre e valida as fontes na ordem definida pelo TOML. */
-export function projeto(root = process.cwd()) {
-  root = realpathSync(root);
+export function projeto(inicio = process.cwd()) {
+  const root = localizarLivro(inicio);
+  if (!root)
+    throw error.notFound(
+      "Abra a pasta do livro ou uma de suas subpastas. Nenhum ebook.toml foi encontrado.",
+    );
   const config = contrato.parse(
     Bun.TOML.parse(readFileSync(resolve(root, "ebook.toml"), "utf8")),
   );
@@ -80,12 +137,7 @@ export function projeto(root = process.cwd()) {
     throw new Error("Duas seções apontam ao mesmo arquivo.");
   const capa = arquivo(files.cover);
   const logo = files.logo ? arquivo(files.logo) : capa;
-  const titulos = fontes.map((path) => {
-    const titulo = /^# (.+)$/m.exec(readFileSync(path, "utf8"))?.[1]?.trim();
-    if (!titulo)
-      throw new Error("Inclua um título de nível 1 em " + relative(root, path));
-    return titulo;
-  });
+  const titulos = fontes.map((path) => tituloDaSecao(path, root));
   local(root, output.directory);
   return { root, book, files, chapters, output, fontes, capa, logo, titulos };
 }

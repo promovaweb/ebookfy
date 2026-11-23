@@ -24,7 +24,7 @@ Para desenvolvimento, sem compilar: `"command": "bun", "args": ["run", "src/main
 | `doctor` | nenhuma | `{ checks, ok }`; `isError: true` se houver `fail` |
 | `about` | nenhuma | identity, runtime, platform, data directory e credits |
 | `exit_codes` | nenhuma | tabela de exit codes |
-| `skill` | `topic?` (`cli`, `tui`, `mcp`, `config`, `exit-codes`, `reference`) | documentação em Markdown |
+| `skill` | `topic?` (`ebook`, `cli`, `tui`, `mcp`, `config`, `exit-codes`, `reference`) | documentação em Markdown |
 | `config_list` | nenhuma | keys de settings.json em vigor e o schema |
 | `config_get` | `key` | valor da key; `isError` quando não existe |
 | `credentials_status` | nenhuma | file, master key source, count e names |
@@ -62,3 +62,9 @@ npx @modelcontextprotocol/inspector ebookfy mcp
 
 O Inspector abre uma página local para chamar tools, ler resources e
 inspecionar as mensagens JSON-RPC.
+
+## Consultar o livro pelo cliente
+
+Inicie o servidor com a pasta de trabalho apontando para o repositório do livro ou uma subpasta dele. Alguns clientes iniciam servidores em sua própria pasta de configuração. Se a consulta da ficha falhar, confira o diretório de trabalho que o cliente passa ao processo. A instalação global do executável e o local do manuscrito cumprem funções diferentes.
+
+Peça ao agente para chamar `ebook_info` sem argumentos e listar, na ordem recebida, o título de cada capítulo e seu caminho. Compare essa lista com `ebookfy info --json` no terminal do livro. Para consultar o procedimento de exportação, peça a ferramenta `skill` com o tópico `ebook`. A ferramenta devolve o guia em Markdown. A geração dos arquivos ocorre pelo comando `ebookfy build` no projeto.

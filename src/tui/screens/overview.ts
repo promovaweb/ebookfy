@@ -1,6 +1,6 @@
 /** Painel inicial do livro, atualizado a partir da configuração do projeto. */
 import { resolve } from "node:path";
-import { resumo } from "../../book/project.ts";
+import { localizarLivro, resumo } from "../../book/project.ts";
 import { scrollPanel, dim, keyValueTable } from "../components.ts";
 import type { Screen } from "../screen.ts";
 
@@ -9,7 +9,7 @@ export const overviewScreen: Screen = {
   title: "Livro",
   icon: "overview",
   description: "Ficha editorial e ordem de leitura",
-  watch: () => [resolve("ebook.toml")],
+  watch: () => [resolve(localizarLivro() ?? process.cwd(), "ebook.toml")],
   actions: [
     {
       keys: ["r"],

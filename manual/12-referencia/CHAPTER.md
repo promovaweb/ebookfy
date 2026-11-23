@@ -1,312 +1,63 @@
 # Referência dos comandos da edição
 
-## Reference generated from the command registry
+Execute os comandos do livro dentro do projeto. Os comandos de preferências e diagnóstico também podem ser usados fora dele. Para obter a sintaxe exata da instalação disponível, acrescente `--help` ao comando ou subcomando. A marcação `<campo>` neste capítulo indica um argumento obrigatório e `[campo]` indica um argumento opcional.
 
-### Global options
+## Consultar e compilar
 
-- `-h`, `--help`: Show help for the current command and exit with code 0.
-- `-V`, `--version`: Print the version and exit with code 0.
-- `--json`: Return JSON output with the envelope { ok, command, data } or { ok, command, error }. Errors are JSON too.
-- `--skill` `[topic]`: Print the full documentation embedded in the binary, written for AI agents. With a topic, print only that section. Values: cli, tui, mcp, config, exit-codes, reference.
-- `--opencli`: Print the OpenCLI description (JSON) of the whole command tree.
-- `--no-color`: Disable ANSI colors in text output. Same as NO_COLOR=1.
+| Comando | Entrada | Resultado |
+| --- | --- | --- |
+| `ebookfy info` | O TOML mais próximo e as fontes editoriais indicadas nele. | Título, autoria, edição, descrição, formatos e capítulos em ordem. |
+| `ebookfy info --json` | A mesma ficha. | Metadados, caminhos editoriais, configuração de saída e pares de caminho e título em `data.chapters`. |
+| `ebookfy build` | Fontes do livro, imagens e conversores dos formatos escolhidos. | Um caminho por arquivo gerado. |
+| `ebookfy build --json` | A mesma configuração de compilação. | Lista dos arquivos em `data.arquivos`. |
 
-### `ebookfy info`
+Para confirmar o destino antes de exportar um livro grande, consulte `data.output` na ficha. Para registrar uma entrega, guarde a lista retornada pelo build junto com a versão do livro. A primeira consulta descreve a configuração. A segunda identifica os arquivos que aquela execução acabou de gerar.
 
-Consulte metadados, formatos e capítulos do ebook.
+## Abrir as telas de trabalho
 
-### `ebookfy build`
+`ebookfy` abre a TUI quando a entrada e a saída estão ligadas a um terminal interativo. Use `ebookfy tui --tab <aba>` para ir a uma tela específica. Os valores são `overview` para a ficha do livro, `settings` para preferências, `credentials` para o cofre, `docs` para documentação e `about` para informações do aplicativo.
 
-Compile os formatos declarados em ebook.toml.
+Em um terminal sem interface gráfica, a TUI continua disponível desde que haja um TTY. Em uma execução redirecionada por pipe, prefira o comando correspondente em texto ou JSON. Por exemplo, `ebookfy about --json` traz versão, runtime e plataforma, enquanto `ebookfy info --json` traz os dados do manuscrito.
 
-### `ebookfy tui`
+## Configurar preferências
 
-Open the terminal interface (Overview and About). Requires a TTY.
+| Comando | Uso |
+| --- | --- |
+| `ebookfy config list` | Conferir as preferências em vigor. |
+| `ebookfy config schema` | Consultar chaves, tipos e valores admitidos. |
+| `ebookfy config get <chave>` | Ler um valor, como `tui.theme`. |
+| `ebookfy config set <chave> <valor>` | Gravar uma preferência pessoal. |
+| `ebookfy config unset <chave>` | Remover o valor salvo e voltar ao padrão da chave. |
+| `ebookfy config path` | Descobrir o caminho do arquivo de configuração do aplicativo. |
 
-Options:
+Para experimentar o tema usado nas capturas, execute `ebookfy config set tui.theme night` e reabra a TUI. Para voltar à configuração padrão, execute `ebookfy config unset tui.theme`. A mudança vale para o perfil local utilizado pelo processo.
 
-- `--tab` `<tab>`: Initial tab. Overrides tui.initialTab from settings.json. Values: overview, about.
+## Operar o cofre
 
-Exit codes besides 0, 1 and 2: 8 (NO_TTY).
+O fluxo de escrita e exportação de um ebook local pode ser feito sem configurar credenciais. Os comandos abaixo ficam disponíveis para integrações que precisam guardar um segredo no perfil do aplicativo.
 
-Requires an interactive terminal or `--stdin`/`--yes` as applicable.
+| Comando | Uso |
+| --- | --- |
+| `ebookfy credentials status` | Consultar o estado do cofre e a origem da chave. |
+| `ebookfy credentials list` | Listar os identificadores cadastrados. |
+| `ebookfy credentials set <nome>` | Cadastrar um valor pelo prompt. A opção `--stdin` lê a primeira linha da entrada padrão. |
+| `ebookfy credentials get <nome>` | Consultar a entrada com o valor mascarado. A opção `--reveal` exibe o conteúdo. |
+| `ebookfy credentials remove <nome>` | Remover uma entrada específica. |
+| `ebookfy credentials clear` | Remover as entradas do cofre. A opção `--yes` dispensa a confirmação. |
+| `ebookfy credentials rotate-key` | Recifrar os valores com uma nova chave. Com `--from-env`, a nova chave vem de `EBOOKFY_MASTER_KEY`. |
 
-Examples:
+Escolha identificadores com letras minúsculas, números, ponto, hífen ou sublinhado. A documentação do perfil explica permissões, chave mestra e rotação. Ao coletar uma saída para suporte, a consulta de estado fornece os dados operacionais sem imprimir o conteúdo das entradas.
 
-```bash
-ebookfy
-ebookfy tui --tab about
-```
+## Documentação, agentes e diagnóstico
 
-### `ebookfy about`
+| Comando | Uso |
+| --- | --- |
+| `ebookfy skill [tópico]` ou `ebookfy --skill [tópico]` | Ler a documentação embutida. Use `ebook`, `cli`, `tui`, `mcp`, `config`, `exit-codes` ou `reference`. Sem tópico, retorna o conjunto completo. |
+| `ebookfy --opencli` | Obter a descrição da árvore de comandos em JSON. |
+| `ebookfy mcp --list` | Listar as ferramentas, recursos e prompts registrados. |
+| `ebookfy mcp` | Iniciar o servidor MCP em comunicação por stdio. O processo aguarda mensagens de um cliente. |
+| `ebookfy doctor` | Conferir runtime, terminal, configuração e cofre locais. Para validar os conversores do livro, consulte o capítulo de exportação. |
+| `ebookfy about` | Consultar versão, executável, plataforma, projeto e créditos. |
+| `ebookfy completion <shell>` | Gerar a configuração de autocompletar para `bash`, `zsh` ou `fish`. |
 
-Show version, executable, runtime, platform and credits.
-
-Examples:
-
-```bash
-ebookfy about
-ebookfy about --json
-```
-
-### `ebookfy config`
-
-Read and write preferences in ~/.ebookfy/settings.json.
-
-Preferences are stored in plain text at /home/luizeof/.ebookfy/settings.json. Nested keys use dot notation. Keys outside the schema are accepted as text to leave room for project extensions. Secrets never go here: use "ebookfy credentials".
-
-Exit codes besides 0, 1 and 2: 3 (CONFIG), 6 (NOT_FOUND), 7 (PERMISSION).
-
-### `ebookfy config list`
-
-List every key with its effective value (file merged with defaults).
-
-Exit codes besides 0, 1 and 2: 3 (CONFIG), 6 (NOT_FOUND), 7 (PERMISSION).
-
-Examples:
-
-```bash
-ebookfy config list
-ebookfy config list --json
-```
-
-### `ebookfy config get`
-
-Show the value of a key.
-
-Arguments:
-
-- `<key>`: Key in dot notation, e.g. output.format.
-
-Exit codes besides 0, 1 and 2: 3 (CONFIG), 6 (NOT_FOUND), 7 (PERMISSION).
-
-Examples:
-
-```bash
-ebookfy config get tui.initialTab
-```
-
-### `ebookfy config set`
-
-Write a value to settings.json, converting the type according to the schema.
-
-Arguments:
-
-- `<key>`: Key in dot notation.
-- `<value>`: Value as text. Booleans accept true/false, yes/no, 1/0, on/off.
-
-Exit codes besides 0, 1 and 2: 3 (CONFIG), 6 (NOT_FOUND), 7 (PERMISSION).
-
-Examples:
-
-```bash
-ebookfy config set output.format json
-ebookfy config set output.colors false
-```
-
-### `ebookfy config unset`
-
-Remove a key from the file. The key falls back to its default, if any.
-
-Arguments:
-
-- `<key>`: Key in dot notation.
-
-Exit codes besides 0, 1 and 2: 3 (CONFIG), 6 (NOT_FOUND), 7 (PERMISSION).
-
-Examples:
-
-```bash
-ebookfy config unset telemetry.enabled
-```
-
-### `ebookfy config path`
-
-Print the data directory and file paths.
-
-Examples:
-
-```bash
-ebookfy config path
-```
-
-### `ebookfy config schema`
-
-List the known keys with type, default and description.
-
-Examples:
-
-```bash
-ebookfy config schema --json
-```
-
-### `ebookfy credentials`
-
-Store encrypted secrets (AES-256-GCM) in ~/.ebookfy/credentials.json.
-
-Values are encrypted with a 32-byte master key. The key comes from the variable EBOOKFY_MASTER_KEY (64 hex characters) or from master.key, created with mode 0600 on first write. Commands that call APIs read the value with getCredential(name) and exit with code 4 when the credential does not exist.
-
-Exit codes besides 0, 1 and 2: 4 (CREDENTIALS), 7 (PERMISSION), 130 (INTERRUPTED).
-
-### `ebookfy credentials set`
-
-Save or replace a credential. The value is read without echo or from stdin.
-
-Arguments:
-
-- `<name>`: Credential identifier: lower-case letters, digits, dot, hyphen and underscore (e.g. openai.api_key).
-
-Options:
-
-- `--stdin`: Force reading the value from the first stdin line, even on an interactive terminal.
-
-Exit codes besides 0, 1 and 2: 4 (CREDENTIALS), 7 (PERMISSION), 130 (INTERRUPTED).
-
-Requires an interactive terminal or `--stdin`/`--yes` as applicable.
-
-Examples:
-
-```bash
-ebookfy credentials set openai.api_key
-printf '%s' "$TOKEN" | ebookfy credentials set github.token --stdin
-```
-
-### `ebookfy credentials get`
-
-Show a masked credential. Use --reveal for the full value.
-
-Arguments:
-
-- `<name>`: Credential identifier.
-
-Options:
-
-- `--reveal`: Print the value in clear. In --json the field becomes `value`.
-
-Exit codes besides 0, 1 and 2: 4 (CREDENTIALS), 7 (PERMISSION), 130 (INTERRUPTED).
-
-Examples:
-
-```bash
-ebookfy credentials get openai.api_key
-ebookfy credentials get openai.api_key --reveal
-```
-
-### `ebookfy credentials list`
-
-List saved names. Never shows values.
-
-Exit codes besides 0, 1 and 2: 4 (CREDENTIALS), 7 (PERMISSION), 130 (INTERRUPTED).
-
-Examples:
-
-```bash
-ebookfy credentials list --json
-```
-
-### `ebookfy credentials remove`
-
-Remove a credential from the vault.
-
-Arguments:
-
-- `<name>`: Credential identifier.
-
-Exit codes besides 0, 1 and 2: 4 (CREDENTIALS), 7 (PERMISSION), 130 (INTERRUPTED).
-
-Examples:
-
-```bash
-ebookfy credentials remove github.token
-```
-
-### `ebookfy credentials status`
-
-Show file, master key source and number of credentials.
-
-Examples:
-
-```bash
-ebookfy credentials status
-```
-
-### `ebookfy credentials clear`
-
-Delete credentials.json entirely. Keeps master.key. Asks for confirmation on a terminal.
-
-Options:
-
-- `-y`, `--yes`: Skip the confirmation.
-
-Exit codes besides 0, 1 and 2: 4 (CREDENTIALS), 7 (PERMISSION), 130 (INTERRUPTED).
-
-Requires an interactive terminal or `--stdin`/`--yes` as applicable.
-
-Examples:
-
-```bash
-ebookfy credentials clear --yes
-```
-
-### `ebookfy credentials rotate-key`
-
-Re-encrypt the existing vault with a new master key and write master.key with mode 0600.
-
-With --from-env, master.key decrypts the vault and EBOOKFY_MASTER_KEY supplies the new key. Without it, a random key is generated; unset the old environment variable in your shell afterward.
-
-Options:
-
-- `--from-env`: Use EBOOKFY_MASTER_KEY (64 hex characters) as the new key; read the current key from master.key.
-
-Exit codes besides 0, 1 and 2: 4 (CREDENTIALS), 7 (PERMISSION), 130 (INTERRUPTED).
-
-### `ebookfy mcp`
-
-Start the MCP server (stdio) with tools, resources and prompts for agents.
-
-Configure in the MCP client: { "command": "ebookfy", "args": ["mcp"] }. Run "ebookfy mcp --list" to see the registered tools, resources and prompts. No tool returns the value of a credential.
-
-Options:
-
-- `--list`: Instead of starting the server, list registered tools, resources and prompts and exit.
-
-Exit codes besides 0, 1 and 2: 9 (MCP).
-
-Examples:
-
-```bash
-ebookfy mcp
-ebookfy mcp --list --json
-```
-
-### `ebookfy skill`
-
-Print the embedded documentation, whole or by topic. Same effect as --skill.
-
-Arguments:
-
-- `[topic]`: Desired section. Without it, prints everything. Values: cli, tui, mcp, config, exit-codes, reference.
-
-Examples:
-
-```bash
-ebookfy skill
-ebookfy skill mcp
-ebookfy --skill cli
-```
-
-### `ebookfy doctor`
-
-Check runtime, terminal, settings, key source and vault readability without changing files.
-
-Exit codes besides 0, 1 and 2: 3 (CONFIG).
-
-### `ebookfy completion`
-
-Print a registry-generated completion script for bash, zsh or fish.
-
-Consulte os comandos de instalação na seção de completion do capítulo sobre o CLI.
-
-Arguments:
-
-- `<shell>`: Shell to generate completion for: bash, zsh or fish. Values: bash, zsh, fish.
+As opções globais incluem `--help` ou `-h`, `--version` ou `-V`, `--json` e `--no-color`. Para consultar opções em um nível específico, execute, por exemplo, `ebookfy credentials set --help`. Para examinar o contrato completo usado pelo CLI da máquina, execute `ebookfy --skill reference`.

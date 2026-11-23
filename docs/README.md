@@ -1,11 +1,31 @@
 # Documentação do Ebookfy
 
-Na pasta que contém `ebook.toml`, execute `ebookfy info` para consultar a ficha e `ebookfy build` para exportar a edição. O comando `ebookfy` abre a interface interativa. Os capítulos e seus recursos ficam no projeto do livro. A configuração pessoal do terminal fica em `~/.ebookfy/`.
+Use o [starter kit privado](https://github.com/promovaweb/ebookfy-starter-kit) para criar um projeto com uma ficha TOML, um capítulo ilustrado e as 15 skills instaladas. Para começar com o livro de exemplo, instale o CLI e siga o primeiro guia. Se já tem um manuscrito, comece pelo guia de migração.
 
-- [Comandos e opções](cli.md)
-- [Interface de terminal](tui.md)
-- [Agentes e MCP](mcp.md)
-- [Preferências e credenciais](configuration.md)
-- [Códigos de saída](exit-codes.md)
+## Produzir o livro
 
-O manual da versão reúne os guias, o catálogo das skills e a referência completa da linha de comando. No repositório privado, consulte a pasta `manual/` para ler as fontes e `ebook/` para baixar o PDF, EPUB ou MOBI.
+| Guia | O que você consegue fazer |
+| --- | --- |
+| [Primeira edição](../manual/01-primeira-edicao/CHAPTER.md) | Instalar as ferramentas, personalizar o exemplo e abrir a primeira prova. |
+| [Ficha do livro](../manual/02-configuracao/CHAPTER.md) | Preencher o TOML completo, selecionar formatos e distinguir a versão do livro da versão do aplicativo. |
+| [Capítulos e imagens](../manual/03-capitulos/CHAPTER.md) | Acrescentar um capítulo ilustrado, configurar o sumário e preparar capa, prefácio, créditos e autoria. |
+| [Migração](../manual/04-migracao/CHAPTER.md) | Transferir um manuscrito único ou um guia de projeto e conferir a nova ordem de leitura. |
+| [Exportação](../manual/05-exportacao/CHAPTER.md) | Gerar os três formatos, localizar os arquivos e verificar uma cópia distribuída. |
+| [Skills editoriais](../manual/06-skills/CHAPTER.md) | Escolher a etapa do agente e conduzir a revisão de um capítulo. |
+
+## Operar o aplicativo
+
+| Guia | O que consultar |
+| --- | --- |
+| [Interface de terminal](../manual/07-terminal/CHAPTER.md) | Captura da aba Livro, navegação pelo teclado, recarga e leitura da documentação. |
+| [CLI e JSON](../manual/08-comandos/CHAPTER.md) | Opções globais, envelopes de resposta e leitura do sumário com Node.js. |
+| [Servidor MCP](../manual/09-agentes/CHAPTER.md) | Configuração do cliente, diretório de trabalho, ferramentas, recursos e prompts. |
+| [Preferências e credenciais](../manual/10-preferencias/CHAPTER.md) | Arquivos locais, temas, variáveis de ambiente e rotação de chave. |
+| [Diagnóstico](../manual/11-erros/CHAPTER.md) | Sintomas comuns, códigos de saída e tratamento de falhas no shell. |
+| [Referência dos comandos](../manual/12-referencia/CHAPTER.md) | Argumentos, opções e exemplos da edição. |
+
+Para consultar o guia editorial no próprio terminal, execute `ebookfy --skill ebook`. Para buscar a sintaxe de um comando instalado, use `ebookfy --skill reference`.
+
+## Ler o manual completo
+
+O manual reúne os doze guias na ordem configurada no TOML do framework. Escolha [PDF](../ebook/manual-ebookfy-v0.1.1.pdf) para páginas fixas, [EPUB](../ebook/manual-ebookfy-v0.1.1.epub) para ajustar a fonte no leitor ou [MOBI](../ebook/manual-ebookfy-v0.1.1.mobi) para leitores compatíveis.

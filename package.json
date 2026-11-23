@@ -1,6 +1,6 @@
 {
   "name": "@promovaweb/ebookfy",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Organize capítulos e exporte seu ebook em PDF, EPUB e MOBI.",
   "type": "module",
   "private": false,

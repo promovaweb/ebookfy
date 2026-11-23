@@ -20,13 +20,31 @@ devem tratar o code antes de interpretar a mensagem.
 A fonte única é `src/app/exit-codes.ts`. A mesma tabela aparece em `--help`,
 em `--opencli`, na tool MCP `exit_codes` e na resource `ebookfy://exit-codes`.
 
-## Em shell
+## Diagnosticar uma falha no livro
+
+| Sintoma | O que verificar | Como confirmar a correção |
+| --- | --- | --- |
+| A ficha informa que nenhum ebook.toml foi encontrado | Confira a pasta atual e a raiz Git. Repositórios vizinhos podem ter seus próprios livros. | Entre na pasta do livro e execute `ebookfy info`. |
+| A configuração indica um campo inválido | Confira o nome da tabela, as aspas da data e a lista de formatos. | Compare com a ficha completa do capítulo de configuração. |
+| O CLI informa um arquivo ausente | Abra o caminho a partir da raiz do livro e confira maiúsculas e minúsculas. | Consulte a ficha novamente. |
+| Um capítulo aparece com título incorreto | Localize o primeiro título de nível 1 no arquivo indicado. | Salve o capítulo e recarregue a TUI com `r`. |
+| A ficha abre e o build falha ao ler uma figura | Abra a imagem pelo caminho usado no Markdown, relativo ao capítulo. | Compile EPUB e procure a figura no capítulo. |
+| A geração falha ao iniciar um conversor | Veja o nome do programa na mensagem e confira sua instalação no terminal. | Rode a opção `--version` do programa e repita o build. |
+| A TUI exige um terminal interativo | Confira se você está em um pipe ou job automatizado. | Use `ebookfy info --json` para a ficha ou abra a TUI em um terminal. |
+
+## Preservar o código de saída no shell
+
+Capture o código imediatamente no ramo de falha. O exemplo trata a ausência de livro separadamente e devolve os demais erros ao processo que chamou o script.
 
 ```bash
-if ! ebookfy credentials get github.token --json > /tmp/out.json; then
-  case $? in
-    4) echo "save the credential with: ebookfy credentials set github.token" ;;
-    *) echo "failed: see /tmp/out.json" ;;
+if ebookfy info --json; then
+  echo "Ficha carregada." >&2
+else
+  codigo=$?
+  case "$codigo" in
+    6) echo "Confira a pasta do livro e seu ebook.toml." >&2 ;;
+    *) echo "A consulta falhou com código $codigo." >&2 ;;
   esac
+  exit "$codigo"
 fi
 ```

@@ -1,6 +1,6 @@
 # Configurar o ambiente local
 
-Tudo que o binário persiste fica em `~/.ebookfy/`:
+As preferências do aplicativo e o cofre local ficam em `~/.ebookfy/`:
 
 | Arquivo | Conteúdo | Permissão |
 | --- | --- | --- |
@@ -13,7 +13,7 @@ testes e CI.
 
 ## settings.json
 
-Keys em notação de ponto. O schema do esqueleto:
+Use as chaves abaixo em notação de ponto. Elas controlam o aplicativo. O conteúdo e os formatos de cada livro ficam no seu próprio `ebook.toml`.
 
 | Key | Tipo | Padrão | Função |
 | --- | --- | --- | --- |
@@ -26,7 +26,7 @@ Keys em notação de ponto. O schema do esqueleto:
 | `tui.theme` | `terminal`, `night` ou `day` | `terminal` | paleta da TUI |
 | `telemetry.enabled` | boolean | `false` | reservado para projetos derivados |
 
-Commands:
+Exemplos de configuração
 
 ```bash
 ebookfy config list
@@ -60,7 +60,7 @@ A master key tem 32 bytes e vem, nesta ordem:
 Gere uma chave para a variável com `openssl rand -hex 32`. Quando a variável
 está definida, `master.key` é ignorado.
 
-Commands:
+Exemplos de configuração
 
 ```bash
 ebookfy credentials set openai.api_key            # digita sem eco

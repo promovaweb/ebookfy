@@ -21,7 +21,7 @@
 | `-h`, `--help` | Help do command atual. Exit code 0. |
 | `-V`, `--version` | Imprime `ebookfy <version>`. Exit code 0. |
 | `--json` | Saída em JSON com envelope estável. Erros também saem em JSON, em stdout. |
-| `--skill [topic]` | Documentação embutida. Topics: `cli`, `tui`, `mcp`, `config`, `exit-codes`, `reference`. |
+| `--skill [topic]` | Documentação embutida. Topics: `ebook`, `cli`, `tui`, `mcp`, `config`, `exit-codes`, `reference`. |
 | `--opencli` | Descrição OpenCLI 0.1 da árvore de commands em JSON. |
 | `--no-color` | Desliga cores ANSI. `NO_COLOR=1` tem o mesmo efeito. |
 
@@ -90,3 +90,21 @@ resultado, sem os capítulos da documentação.
 ## Comandos do livro
 
 Execute `ebookfy info` para consultar a ficha na pasta atual. Com `--json`, leia `data.chapters` para a sequência e `data.output` para o destino e os formatos. Execute `ebookfy build` para gerar a edição e `ebookfy build --json` para obter os caminhos em `data.arquivos`.
+
+## Ler o resultado em uma automação
+
+O campo `data.chapters` contém objetos com `file` e `title`. Use esse par para relacionar o sumário com o arquivo de origem. O exemplo abaixo usa Node.js e roda dentro de um projeto de livro. O processo filho herda a pasta atual.
+
+```js
+import { execFileSync } from "node:child_process";
+
+const resposta = execFileSync("ebookfy", ["info", "--json"], {
+  encoding: "utf8",
+});
+const { data } = JSON.parse(resposta);
+for (const [indice, capitulo] of data.chapters.entries()) {
+  console.log(indice + 1, capitulo.title, capitulo.file);
+}
+```
+
+Se o CLI encerrar com erro, `execFileSync` lança uma exceção. Em um fluxo que trata falhas individualmente, use `spawnSync` e examine `status` e `stdout` antes de acessar `data`. Para consultar o guia editorial sem rede, execute `ebookfy --skill ebook`. O mesmo tópico está disponível na aba Docs e pelo MCP.

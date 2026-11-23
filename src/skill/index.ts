@@ -7,6 +7,14 @@
  * codes. The CLI section ends with the reference generated from the command
  * registry, so it never drifts from what the parser accepts.
  */
+import primeiraEdicao from "../../manual/01-primeira-edicao/CHAPTER.md" with { type: "text" };
+import ficha from "../../manual/02-configuracao/CHAPTER.md" with { type: "text" };
+import capitulos from "../../manual/03-capitulos/CHAPTER.md" with { type: "text" };
+import migracao from "../../manual/04-migracao/CHAPTER.md" with { type: "text" };
+import exportacao from "../../manual/05-exportacao/CHAPTER.md" with { type: "text" };
+import skillsEditoriais from "../../manual/06-skills/CHAPTER.md" with { type: "text" };
+import { SKILL_TOPICS } from "./topics.ts";
+export { SKILL_TOPICS } from "./topics.ts";
 import overview from "../../docs/README.md" with { type: "text" };
 import cliDoc from "../../docs/cli.md" with { type: "text" };
 import tuiDoc from "../../docs/tui.md" with { type: "text" };
@@ -18,7 +26,6 @@ import { exitCodeDescriptions } from "../app/exit-codes.ts";
 import { GLOBAL_OPTIONS, type Command, type OptionDefinition } from "../cli/registry.ts";
 
 /** Topics accepted by `--skill <topic>` and by the MCP tool/resource `skill`. */
-export const SKILL_TOPICS = ["cli", "tui", "mcp", "config", "exit-codes", "reference"] as const;
 export type SkillTopic = (typeof SKILL_TOPICS)[number];
 
 function substitute(text: string): string {
@@ -80,6 +87,7 @@ export function commandReference(root: Command): string {
 /** Returns the requested section or the whole documentation. */
 export function skillText(root: Command, topic?: string): string {
   const sections: Record<SkillTopic, () => string> = {
+    ebook: () => [primeiraEdicao, ficha, capitulos, migracao, exportacao, skillsEditoriais].join("\n\n"),
     reference: () => commandReference(root),
     cli: () => `${substitute(cliDoc)}\n\n${commandReference(root)}`,
     tui: () => substitute(tuiDoc),
