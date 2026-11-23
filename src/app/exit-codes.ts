@@ -42,7 +42,7 @@ export const exitCodeDescriptions: ReadonlyArray<{ code: ExitCode; name: string;
     { code: ExitCode.SUCCESS, name: "SUCCESS", description: "Operation completed." },
     { code: ExitCode.GENERIC_ERROR, name: "GENERIC_ERROR", description: "Unexpected failure without a specific classification." },
     { code: ExitCode.USAGE, name: "USAGE", description: "Invalid arguments, options or subcommand." },
-    { code: ExitCode.CONFIG, name: "CONFIG", description: "settings.json missing, invalid or unknown key." },
+    { code: ExitCode.CONFIG, name: "CONFIG", description: "ebook.toml or settings.json missing, invalid or with an unknown key; file declared in the ficha not found." },
     { code: ExitCode.CREDENTIALS, name: "CREDENTIALS", description: "credentials.json unreadable, master key missing or credential not found." },
     { code: ExitCode.NETWORK_OR_API, name: "NETWORK_OR_API", description: "Network failure or unexpected API response." },
     { code: ExitCode.NOT_FOUND, name: "NOT_FOUND", description: "Requested resource does not exist." },

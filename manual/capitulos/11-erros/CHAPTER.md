@@ -8,7 +8,7 @@ devem tratar o code antes de interpretar a mensagem.
 | 0 | `SUCCESS` | operação concluída |
 | 1 | `GENERIC_ERROR` | falha inesperada sem classificação |
 | 2 | `USAGE` | arguments, options ou subcommand inválidos; também quando o binário roda sem argumentos fora de um TTY |
-| 3 | `CONFIG` | settings.json ausente, inválido ou key desconhecida |
+| 3 | `CONFIG` | `ebook.toml` ou settings.json ausente, inválido ou com key desconhecida; arquivo declarado na ficha não encontrado |
 | 4 | `CREDENTIALS` | credentials.json ilegível, master key ausente ou credencial não encontrada |
 | 5 | `NETWORK_OR_API` | falha de rede ou resposta de API fora do esperado |
 | 6 | `NOT_FOUND` | recurso solicitado não existe |
@@ -25,8 +25,8 @@ em `--opencli`, na tool MCP `exit_codes` e na resource `ebookfy://exit-codes`.
 | Sintoma | O que verificar | Como confirmar a correção |
 | --- | --- | --- |
 | A ficha informa que nenhum ebook.toml foi encontrado | Confira a pasta atual e a raiz Git. Repositórios vizinhos podem ter seus próprios livros. | Entre na pasta do livro e execute `ebookfy info`. |
-| A configuração indica um campo inválido | Confira o nome da tabela, as aspas da data e a lista de formatos. | Compare com a ficha completa do capítulo de configuração. |
-| O CLI informa um arquivo ausente | Abra o caminho a partir da raiz do livro e confira maiúsculas e minúsculas. | Consulte a ficha novamente. |
+| `A ficha ebook.toml tem N problemas:` | Cada linha cita o campo e o que corrigir, como `book.date está em formato inválido: use AAAA-MM-DD`. Em `--json`, a lista fica em `error.details.problemas`. | Corrija os campos citados e execute `ebookfy info` até a ficha abrir. |
+| `Arquivo não encontrado: ...` | Abra o caminho a partir da raiz do livro e confira maiúsculas e minúsculas. | Consulte a ficha novamente. |
 | Um capítulo aparece com título incorreto | Localize o primeiro título de nível 1 no arquivo indicado. | Salve o capítulo e recarregue a TUI com `r`. |
 | A ficha abre e o build falha ao ler uma figura | Abra a imagem pelo caminho usado no Markdown, relativo ao capítulo. | Compile EPUB e procure a figura no capítulo. |
 | A geração falha ao iniciar um conversor | Execute `ebookfy doctor` na pasta do livro para identificar o conversor ausente e os formatos afetados. | Disponibilize o conversor no PATH, confira a versão com `ebookfy doctor` e repita o build. |

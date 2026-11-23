@@ -38,4 +38,4 @@ Para conferir uma transferência, calcule o SHA-256 dos arquivos da edição e c
 sha256sum ebook/caderno-da-oficina-v1.0.0.{pdf,epub,mobi}
 ```
 
-Uma nova compilação pode produzir bytes diferentes por causa das datas internas dos formatos. Para verificar o download, compare duas cópias do mesmo arquivo gerado.
+O compilador usa `book.date` como data interna dos formatos (`SOURCE_DATE_EPOCH`). Com as mesmas fontes e as mesmas versões dos conversores, PDF e EPUB saem idênticos a cada build. O MOBI muda, porque o Calibre grava o horário da conversão e um identificador próprio. Para verificar um download, compare o hash com o do arquivo conferido, não com um build novo.

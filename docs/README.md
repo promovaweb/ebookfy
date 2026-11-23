@@ -1,6 +1,6 @@
 # Documentação do Ebookfy
 
-Use o [starter kit privado](https://github.com/promovaweb/ebookfy-starter-kit) para criar um projeto com uma ficha TOML, um capítulo ilustrado e as 15 skills instaladas. Para iniciar um repositório vazio com o livro de exemplo, instale o CLI e execute `ebookfy init` na raiz. Se já tem um manuscrito, comece pelo guia de migração.
+Use o [starter kit](https://github.com/promovaweb/ebookfy-starter-kit), público e sob licença MIT, para criar um projeto com uma ficha TOML, o livro de exemplo e as 15 skills instaladas. Para iniciar um repositório vazio com o livro de exemplo, instale o CLI e execute `ebookfy init` na raiz. Se já tem um manuscrito, comece pelo guia de migração.
 
 ## Produzir o livro
 
@@ -28,4 +28,4 @@ Para consultar o guia editorial no próprio terminal, execute `ebookfy --skill e
 
 ## Ler o manual completo
 
-O manual reúne os doze guias na ordem configurada no [TOML do manual](../manual/ebook.toml). Escolha [PDF](../manual/ebook/manual-ebookfy-v0.5.1.pdf) para páginas fixas, [EPUB](../manual/ebook/manual-ebookfy-v0.5.1.epub) para ajustar a fonte no leitor ou [MOBI](../manual/ebook/manual-ebookfy-v0.5.1.mobi) para leitores compatíveis.
+O manual reúne os doze guias na ordem configurada no [TOML do manual](../manual/ebook.toml). Escolha [PDF](../manual/ebook/manual-ebookfy-v0.6.0.pdf) para páginas fixas, [EPUB](../manual/ebook/manual-ebookfy-v0.6.0.epub) para ajustar a fonte no leitor ou [MOBI](../manual/ebook/manual-ebookfy-v0.6.0.mobi) para leitores compatíveis.

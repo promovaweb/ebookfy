@@ -1,10 +1,10 @@
 {
   "name": "@promovaweb/ebookfy",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "Organize capítulos e exporte seu ebook em PDF, EPUB e MOBI.",
   "type": "module",
   "private": false,
-  "license": "UNLICENSED",
+  "license": "AGPL-3.0-only",
   "bin": {
     "ebookfy": "bin/ebookfy.cjs"
   },
@@ -23,7 +23,8 @@
     "test": "node --test tests/*.test.mjs",
     "manual": "cd manual && bun ../src/main.ts build",
     "build": "bun build ./src/main.ts --target=bun --packages=external --outdir dist/bin",
-    "prepack": "npm run build"
+    "prepack": "npm run build",
+    "capturas": "node scripts/capturas.mjs"
   },
   "engines": {
     "node": ">=22"
@@ -39,6 +40,8 @@
   },
   "devDependencies": {
     "@types/bun": "^1.4.4",
+    "@xterm/xterm": "6.0.0",
+    "playwright-core": "1.63.0",
     "typescript": "^7.0.2"
   },
   "author": "Promovaweb",
@@ -47,7 +50,8 @@
     "print",
     "brand/logo",
     "README.md",
-    "bin"
+    "bin",
+    "LICENSE"
   ],
   "publishConfig": {
     "access": "public"

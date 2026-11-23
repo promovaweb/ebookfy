@@ -71,7 +71,7 @@ os dois: o envelope para a mensagem, o code para a classe da falha.
 | `credentials set\|get\|list\|remove\|status\|clear\|rotate-key` | Cofre cifrado em credentials.json. |
 | `mcp [--list]` | Servidor MCP via stdio, ou listagem do que ele registra. |
 | `skill [topic]` | Mesmo efeito de `--skill`. |
-| `doctor` | Confere runtime, TTY, pasta, settings, chave, cofre e conversores. |
+| `doctor` | Confere runtime, TTY, pasta, settings, chave, cofre, conversores e o epubcheck opcional. |
 | `completion <shell>` | Gera script para `bash`, `zsh` ou `fish`. |
 
 ## Diagnóstico e completion
@@ -87,6 +87,10 @@ Para cada conversor encontrado no PATH, o comando mostra a primeira linha de
 `weasyprint`, o PDF fica indisponível. Sem `ebook-convert` (Calibre), o MOBI
 fica indisponível. Cada ausência gera um aviso (`warn`). Dentro de um livro,
 o aviso indica quais formatos de `output.formats` dependem do conversor.
+O `epubcheck`, validador oficial do EPUB, é opcional: quando falta, o
+aviso traz o comando para validar o arquivo gerado.
+O `epubcheck`, validador oficial do EPUB, é opcional: quando falta, o
+aviso traz o comando para validar o arquivo gerado.
 O diagnóstico não cria arquivos nem mostra segredos.
 
 `ebookfy completion <shell>` imprime o script em stdout. O argument `shell`

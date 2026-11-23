@@ -23,7 +23,12 @@
     "allowed_elements": [
       "DocCallout",
       "p",
-      "img"
+      "img",
+      "a",
+      "picture",
+      "source",
+      "h1",
+      "br"
     ]
   },
   "MD034": true,

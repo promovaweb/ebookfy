@@ -329,3 +329,35 @@ hr {
   border: 0;
   border-top: 1px solid var(--pdf-border);
 }
+
+/* Notas de rodapé no pé da página: o filtro notas.lua troca cada nota por
+   span.footnote no lugar da chamada; o WeasyPrint numera e posiciona. */
+span.footnote {
+  float: footnote;
+  font-size: 8.5pt;
+  line-height: 1.4;
+  color: var(--pdf-graphite);
+  font-style: normal;
+  font-weight: normal;
+}
+
+::footnote-call {
+  content: counter(footnote);
+  vertical-align: super;
+  font-size: 70%;
+  line-height: 0;
+  color: var(--pdf-link);
+}
+
+::footnote-marker {
+  content: counter(footnote) ". ";
+  color: var(--pdf-link);
+}
+
+@page {
+  @footnote {
+    margin-top: 10px;
+    padding-top: 6px;
+    border-top: 0.5pt solid var(--pdf-border);
+  }
+}

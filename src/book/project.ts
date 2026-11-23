@@ -18,6 +18,7 @@ import {
 } from "node:path";
 import { error } from "../app/errors.ts";
 import { z } from "zod";
+import { problemasDaFicha, textoDosProblemas } from "./problemas.ts";
 
 const texto = z.string().trim().min(1);
 const formatos = z.enum(["pdf", "epub", "mobi"]);
@@ -59,7 +60,7 @@ export function local(root: string, value: string): string {
   const path = resolve(root, value);
   const rel = relative(root, path);
   if (isAbsolute(value) || !rel || rel === ".." || rel.startsWith(".." + sep)) {
-    throw new Error("Caminho fora do projeto: " + value);
+    throw error.config("Caminho fora do livro: " + value + ". Use um caminho relativo dentro da pasta do ebook.toml.");
   }
   return path;
 }
@@ -104,11 +105,31 @@ function tituloBruto(path: string, root: string): string {
       },
     });
     if (!titulo)
-      throw new Error("Inclua um título de nível 1 em " + relative(root, path));
+      throw error.config("Inclua um título de nível 1 (# Título) em " + relative(root, path) + ".");
     return titulo;
   } finally {
     closeSync(fd);
   }
+}
+
+/**
+ * Lê e valida o ebook.toml. Erros de sintaxe e de contrato viram AppError de
+ * configuração, com uma frase em português por problema e a lista em details.
+ */
+function lerFicha(root: string) {
+  let bruto: unknown;
+  try {
+    bruto = Bun.TOML.parse(readFileSync(resolve(root, "ebook.toml"), "utf8"));
+  } catch (falha) {
+    const motivo = falha instanceof Error ? falha.message : String(falha);
+    throw error.config("O ebook.toml não é um TOML válido: " + motivo);
+  }
+  const lido = contrato.safeParse(bruto);
+  if (!lido.success) {
+    const problemas = problemasDaFicha(lido.error);
+    throw error.config(textoDosProblemas(problemas), { problemas });
+  }
+  return lido.data;
 }
 
 /** Abre e valida as fontes na ordem definida pelo TOML. */
@@ -118,9 +139,7 @@ export function projeto(inicio = process.cwd()) {
     throw error.notFound(
       "Abra a pasta do livro ou uma de suas subpastas. Nenhum ebook.toml foi encontrado.",
     );
-  const config = contrato.parse(
-    Bun.TOML.parse(readFileSync(resolve(root, "ebook.toml"), "utf8")),
-  );
+  const config = lerFicha(root);
   const { book, files, chapters, output } = config;
   const nomes = [
     files.preface,
@@ -132,19 +151,29 @@ export function projeto(inicio = process.cwd()) {
     new Set(nomes).size !== nomes.length ||
     new Set(output.formats).size !== output.formats.length
   ) {
-    throw new Error("Cada seção e formato deve aparecer uma vez.");
+    throw error.config(
+      "Cada capítulo, texto editorial e formato deve aparecer uma vez no ebook.toml.",
+    );
   }
   if (chapters.some((c) => basename(c.file) !== "CHAPTER.md"))
-    throw new Error("Cada capítulo precisa de CHAPTER.md.");
+    throw error.config(
+      "Cada capítulo de [[chapters]] precisa apontar para um arquivo CHAPTER.md.",
+    );
   const arquivo = (nome: string) => {
-    const path = realpathSync(local(root, nome));
+    const declarado = local(root, nome);
+    if (!existsSync(declarado))
+      throw error.config("Arquivo não encontrado: " + nome + ". Confira o caminho no ebook.toml.", {
+        arquivo: nome,
+      });
+    const path = realpathSync(declarado);
     local(root, relative(root, path));
-    if (!statSync(path).isFile()) throw new Error("Esperado arquivo: " + nome);
+    if (!statSync(path).isFile())
+      throw error.config("O caminho " + nome + " precisa ser um arquivo, não uma pasta.");
     return path;
   };
   const fontes = nomes.map(arquivo);
   if (new Set(fontes).size !== fontes.length)
-    throw new Error("Duas seções apontam ao mesmo arquivo.");
+    throw error.config("Duas seções do ebook.toml apontam para o mesmo arquivo.");
   const capa = arquivo(files.cover);
   const logo = files.logo ? arquivo(files.logo) : capa;
   const titulos = fontes.map((path) => tituloDaSecao(path, root));

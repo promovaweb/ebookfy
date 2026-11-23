@@ -26,11 +26,13 @@ file = "capitulos/02-oficina/CHAPTER.md"
 
 Quando uma imagem ocupa sozinha um parágrafo, o texto entre colchetes serve como legenda visível e como texto alternativo para leitores de tela. Quando substituir a figura, descreva no texto alternativo o detalhe que ela ensina. Para uma fotografia de uma bancada, indique a posição dos objetos que o leitor precisa reconhecer. Registre a origem, a autoria da imagem e a permissão de distribuição no texto de créditos. Se mover a imagem para outra pasta, atualize a referência no Markdown e gere outra prova.
 
+O `ebookfy build` recusa imagem com endereço remoto (`https://...`) ou com caminho que sai da pasta do livro. A mensagem lista o arquivo, a linha e a imagem. Baixe a imagem para a pasta `imagens/` do capítulo e use o caminho relativo, para a edição não depender da rede nem de arquivos fora do repositório.
+
 ## Ligar capítulos e numerar notas
 
 O Ebookfy compila o livro inteiro como um documento. Para levar o leitor a outro capítulo, use a âncora de um título. Por exemplo, `[Confira os materiais](#materiais)` leva ao título `## Materiais {#materiais}`. Um link para outro `CHAPTER.md` compila, mas fica quebrado na edição.
 
-Dois títulos chamados **Exemplo** recebem os identificadores automáticos `exemplo` e `exemplo-1`, na ordem de leitura. Use identificadores explícitos e únicos para manter os links ao reorganizar capítulos. Nas notas de rodapé, use um prefixo por capítulo, como `[^cap02-fonte]`, tanto na chamada quanto na definição. Repetir o rótulo de uma nota em outro capítulo interrompe a compilação com `Duplicate note reference`.
+Dois títulos chamados **Exemplo** recebem os identificadores automáticos `exemplo` e `exemplo-1`, na ordem de leitura. Use identificadores explícitos e únicos para manter os links ao reorganizar capítulos. Nas notas de rodapé, use um prefixo por capítulo, como `[^cap02-fonte]`, tanto na chamada quanto na definição. Repetir o rótulo de uma nota em outro capítulo interrompe a compilação com `Duplicate note reference`. No PDF, o texto de cada nota fica no pé da página da chamada. No EPUB, a chamada leva à nota e de volta.
 
 ## Preparar as páginas editoriais
 

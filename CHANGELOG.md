@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.6.0
+
+- O repositório passa a ser público, sob a GNU AGPL 3.0 (`AGPL-3.0-only`), com `LICENSE` também no pacote npm. Versões anteriores continuam sob a licença com que saíram. O README segue o padrão dos projetos open source da Promovaweb, com links absolutos para a página do npm.
+- Erros no `ebook.toml` saem em português, uma linha por campo, com exit code 3 (`CONFIG`): chave desconhecida, campo ausente, formato de versão, data ou slug, lista vazia e formato de saída inválido. Em `--json`, `error.details.problemas` traz `campo`, `mensagem` e `codigo`. Erro de sintaxe TOML e arquivo declarado que não existe também viram `CONFIG`, com mensagem direta.
+- O `build` recusa imagem com endereço remoto ou com caminho fora da pasta do livro, antes de chamar o Pandoc, e lista arquivo, linha e imagem. Imagens em blocos de código e `data:` continuam aceitas.
+- Notas de rodapé ficam no pé da página do PDF, no lugar da seção única depois da apresentação de autoria. O EPUB mantém a nota com link de ida e volta.
+- O build usa `book.date` como `SOURCE_DATE_EPOCH`: com as mesmas fontes e conversores, PDF e EPUB saem idênticos a cada build. O MOBI ainda muda, porque o Calibre grava horários próprios.
+- `ebookfy doctor` mostra o `epubcheck`, validador opcional do EPUB.
+- `npm run capturas` gera as figuras da TUI do manual e do livro de exemplo a partir das telas reais, com tmux, xterm.js e Chromium. O capítulo 1 do exemplo ganhou a captura da aba Livro.
+- O `init` usa o starter kit 0.4.0, agora público e sob licença MIT. Skills, manual e documentação descrevem as novas mensagens, a recusa de imagens, as notas no pé da página e o build reproduzível.
+
 ## 0.5.1
 
 - O livro de exemplo **Meu primeiro ebook** virou um guia completo de 22 páginas, em sete capítulos: preparar a edição, planejar, escrever, imagens e capa, textos editoriais, compilar e conferir, revisar e distribuir. Cada capítulo usa no próprio texto o recurso que explica, e as figuras são a capa e o sumário da própria edição.

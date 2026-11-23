@@ -11,16 +11,37 @@ import {
 } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { error } from "../app/errors.ts";
+import { imagensRecusadas, textoDasImagens } from "./imagens.ts";
 import { local, projeto } from "./project.ts";
 
 const kit = fileURLToPath(new URL("../../print/", import.meta.url));
 
+/**
+ * Data fixa para os conversores, em segundos desde 1970 (SOURCE_DATE_EPOCH).
+ * Com ela, Pandoc e WeasyPrint gravam a data da edição em vez do relógio, e
+ * dois builds da mesma versão geram PDF e EPUB idênticos. O Calibre ainda
+ * grava horários e um identificador aleatório no MOBI.
+ */
+function dataDaEdicao(data: string): string {
+  return String(Math.floor(Date.parse(data + "T00:00:00Z") / 1000));
+}
+
 /** Propaga erros dos conversores e imagens ausentes como falha da compilação. */
-function converter(programa: string, args: string[], cwd: string) {
+function converter(
+  programa: string,
+  args: string[],
+  cwd: string,
+  epoch: string,
+) {
   const r = spawnSync(programa, args, {
     cwd,
     encoding: "utf8",
     maxBuffer: 32 * 1024 * 1024,
+    env: {
+      ...process.env,
+      SOURCE_DATE_EPOCH: process.env.SOURCE_DATE_EPOCH || epoch,
+    },
   });
   if (r.error || r.status !== 0)
     throw new Error(
@@ -30,6 +51,9 @@ function converter(programa: string, args: string[], cwd: string) {
 
 export function compilar() {
   const { root, book, output, fontes, capa, logo } = projeto();
+  const recusadas = imagensRecusadas(root, fontes);
+  if (recusadas.length)
+    throw error.config(textoDasImagens(recusadas), { imagens: recusadas });
   const destino = local(root, output.directory);
   let existente = destino;
   while (!existsSync(existente)) existente = dirname(existente);
@@ -39,6 +63,7 @@ export function compilar() {
   const tmp = mkdtempSync(join(destino, ".edicao-"));
   const base = book.slug + "-v" + book.version;
   const arquivo = (ext: string) => join(tmp, base + "." + ext);
+  const epoch = dataDaEdicao(book.date);
   try {
     const meta = join(tmp, "metadata.json");
     writeFileSync(
@@ -71,6 +96,9 @@ export function compilar() {
           "--to=html5",
           // Sem quebra automática: o título entra numa string CSS do rodapé, que não aceita quebra de linha.
           "--wrap=none",
+          // Notas viram spans no lugar da chamada para o WeasyPrint pô-las no pé da página.
+          "--lua-filter",
+          resolve(kit, "notas.lua"),
           "--template",
           resolve(kit, "template.html"),
           "--css",
@@ -79,12 +107,14 @@ export function compilar() {
           arquivo("html"),
         ],
         root,
+        epoch,
       );
       // O HTML temporário fica na saída. A base do WeasyPrint aponta para as imagens do projeto.
       converter(
         "weasyprint",
         ["--base-url", root + "/", arquivo("html"), arquivo("pdf")],
         root,
+        epoch,
       );
     }
     if (output.formats.some((f) => f === "mobi" || f === "epub")) {
@@ -99,10 +129,23 @@ export function compilar() {
           arquivo("epub"),
         ],
         root,
+        epoch,
       );
     }
     if (output.formats.includes("mobi"))
-      converter("ebook-convert", [arquivo("epub"), arquivo("mobi")], root);
+      converter(
+        "ebook-convert",
+        [
+          arquivo("epub"),
+          arquivo("mobi"),
+          "--timestamp",
+          book.date,
+          "--pubdate",
+          book.date,
+        ],
+        root,
+        epoch,
+      );
     return output.formats.map((ext) => {
       const path = join(destino, base + "." + ext);
       renameSync(arquivo(ext), path);

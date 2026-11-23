@@ -1,4 +1,4 @@
-/** Prepara a pasta atual com uma edição conhecida do starter kit privado. */
+/** Prepara a pasta atual com uma edição conhecida do starter kit. */
 import { spawnSync } from "node:child_process";
 import { mkdirSync, readdirSync, renameSync, rmSync } from "node:fs";
 import { join } from "node:path";
@@ -7,7 +7,7 @@ import { ExitCode } from "../../app/exit-codes.ts";
 import type { Command } from "../registry.ts";
 
 const repositorio = "https://github.com/promovaweb/ebookfy-starter-kit.git";
-const versao = "v0.3.1";
+const versao = "v0.4.0";
 const reserva = ".ebookfy-init";
 
 /** Aceita a pasta .git e o arquivo .git utilizado por worktrees e submódulos. */
@@ -24,7 +24,7 @@ function conferirDestino(destino: string, duranteCopia = false) {
 export const init: Command = {
   name: "init",
   description:
-    "Inicia um livro na pasta atual usando o starter kit privado da Promovaweb.",
+    "Inicia um livro na pasta atual usando o starter kit público da Promovaweb.",
   examples: ["ebookfy init", "ebookfy init --json"],
   exitCodes: [ExitCode.NOT_FOUND, ExitCode.NETWORK_OR_API],
   run() {
@@ -54,7 +54,7 @@ export const init: Command = {
         throw error.notFound("Instale o Git e execute ebookfy init novamente.");
       if (git.error || git.status !== 0) {
         throw error.network(
-          "Falha ao obter o starter kit privado. Confira sua conexão e o acesso com git ls-remote " +
+          "Falha ao obter o starter kit. Confira sua conexão com git ls-remote " +
             repositorio,
         );
       }

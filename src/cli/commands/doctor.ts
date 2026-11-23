@@ -54,6 +54,27 @@ function verificarConversores(): DoctorCheck[] {
   });
 }
 
+/**
+ * Confere o epubcheck, validador oficial do EPUB (W3C). É opcional: sem ele o
+ * build funciona, mas problemas que leitores digitais e lojas rejeitam podem
+ * passar pela leitura visual. Ausência gera aviso com o comando para validar.
+ */
+function verificarEpubcheck(): DoctorCheck {
+  const caminho = Bun.which("epubcheck");
+  if (!caminho)
+    return {
+      name: "epubcheck",
+      status: "warn",
+      detail:
+        "Opcional, ausente do PATH. Instale para validar o EPUB antes de distribuir: epubcheck ebook/<arquivo>.epub.",
+    };
+  const resultado = spawnSync(caminho, ["--version"], { encoding: "utf8", timeout: 15000 });
+  const versao = (resultado.stdout?.trim() || resultado.stderr?.trim() || "").split(/\r?\n/)[0];
+  return versao
+    ? { name: "epubcheck", status: "ok", detail: versao }
+    : { name: "epubcheck", status: "warn", detail: "Encontrado no PATH, mas não foi possível consultar a versão." };
+}
+
 /** Collects independent checks without writing files or exposing secrets. */
 export function collectDoctorChecks(runtime = { version: Bun.version, stdin: Boolean(process.stdin.isTTY), stdout: Boolean(process.stdout.isTTY) }) {
   const checks: DoctorCheck[] = [];
@@ -86,13 +107,13 @@ export function collectDoctorChecks(runtime = { version: Bun.version, stdin: Boo
   inspect("credentials", paths.credentials(), () => { readVault(); }, "Vault decrypted successfully");
   add("binary", "ok", `${manifest.bin} ${manifest.version}`);
   add("platform", "ok", `${process.platform}-${process.arch}`);
-  checks.push(...verificarConversores());
+  checks.push(...verificarConversores(), verificarEpubcheck());
   return { checks, ok: checks.every((check) => check.status !== "fail") };
 }
 
 export const doctorCommand: Command = {
   name: "doctor",
-  description: "Confere runtime, terminal, perfil, chave, cofre e conversores de exportação.",
+  description: "Confere runtime, terminal, perfil, chave, cofre, conversores de exportação e o epubcheck opcional.",
   exitCodes: [ExitCode.CONFIG],
   run: () => {
     const data = collectDoctorChecks();
