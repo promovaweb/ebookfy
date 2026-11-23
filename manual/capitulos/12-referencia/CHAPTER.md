@@ -4,7 +4,7 @@ Execute os comandos do livro dentro do projeto. Os comandos de preferências e d
 
 ## Iniciar o projeto
 
-Execute `ebookfy init` na pasta vazia do livro. A operação usa o Git para obter o starter kit privado e aceita um repositório que já contém a entrada `.git`. Com `ebookfy init --json`, os campos `data.diretorio`, `data.template`, `data.versao` e `data.entradas` registram o destino, a origem, a tag do modelo e as entradas instaladas na raiz. Para conferir o acesso antes de iniciar, execute `git ls-remote https://github.com/promovaweb/ebookfy-starter-kit.git refs/tags/v0.2.0`.
+Execute `ebookfy init` na pasta vazia do livro. A operação usa o Git para obter o starter kit privado e aceita um repositório que já contém a entrada `.git`. Com `ebookfy init --json`, os campos `data.diretorio`, `data.template`, `data.versao` e `data.entradas` registram o destino, a origem, a tag do modelo e as entradas instaladas na raiz. Para conferir o acesso antes de iniciar, execute `git ls-remote https://github.com/promovaweb/ebookfy-starter-kit.git refs/tags/v0.3.0`.
 
 ## Consultar e compilar
 
@@ -32,7 +32,7 @@ Em um terminal sem interface gráfica, a TUI continua disponível desde que haja
 | `ebookfy config get <chave>` | Ler um valor, como `tui.theme`. |
 | `ebookfy config set <chave> <valor>` | Gravar uma preferência pessoal. |
 | `ebookfy config unset <chave>` | Remover o valor salvo e voltar ao padrão da chave. |
-| `ebookfy config path` | Descobrir o caminho do arquivo de configuração do aplicativo. |
+| `ebookfy config path` | Mostrar a pasta de dados e os caminhos de `settings.json`, `credentials.json` e `master.key`. |
 
 Para experimentar o tema usado nas capturas, execute `ebookfy config set tui.theme night` e reabra a TUI. Para voltar à configuração padrão, execute `ebookfy config unset tui.theme`. A mudança vale para o perfil local utilizado pelo processo.
 
@@ -47,7 +47,7 @@ O fluxo de escrita e exportação de um ebook local pode ser feito sem configura
 | `ebookfy credentials set <nome>` | Cadastrar um valor pelo prompt. A opção `--stdin` lê a primeira linha da entrada padrão. |
 | `ebookfy credentials get <nome>` | Consultar a entrada com o valor mascarado. A opção `--reveal` exibe o conteúdo. |
 | `ebookfy credentials remove <nome>` | Remover uma entrada específica. |
-| `ebookfy credentials clear` | Remover as entradas do cofre. A opção `--yes` dispensa a confirmação. |
+| `ebookfy credentials clear` | Apagar `credentials.json` e manter `master.key`. Sem `--yes`, pede confirmação no terminal interativo e sai com código 130 fora de um TTY. |
 | `ebookfy credentials rotate-key` | Recifrar os valores com uma nova chave. Com `--from-env`, a nova chave vem de `EBOOKFY_MASTER_KEY`. |
 
 Escolha identificadores com letras minúsculas, números, ponto, hífen ou sublinhado. A documentação do perfil explica permissões, chave mestra e rotação. Ao coletar uma saída para suporte, a consulta de estado fornece os dados operacionais sem imprimir o conteúdo das entradas.

@@ -1,109 +1,56 @@
 # Escolher e executar as skills
 
-As skills numeradas acompanham o trabalho desde a organização até a entrega. A migração no fim do catálogo é um ponto de entrada para livros existentes.
+As 15 skills numeradas acompanham um livro da organização à entrega. Cada uma é uma pasta com um `SKILL.md`, que traz quando usar, o procedimento, as regras do Ebookfy que afetam aquela etapa, uma tabela de problemas frequentes e uma checklist da entrega, e uma pasta `references/` com modelos e exemplos completos. No starter kit, elas ficam em `.agents/skills/`.
 
-## ebookfy-01-organizar
+## O percurso
 
-Prepare a raiz a partir do starter kit. Identifique o leitor, a pergunta do livro e a entrega que ele poderá reproduzir. Registre título, idioma, autoria, identificador e edição em [book].
+| Etapa | Use quando | Produz |
+| --- | --- | --- |
+| `ebookfy-01-organizar` | Começar um livro, organizar uma pasta ou corrigir a ficha. | `ebook.toml` válido, árvore de pastas e `notas/briefing.md`. |
+| `ebookfy-02-pesquisar` | Apurar afirmações, comandos e imagens antes de escrever. | `notas/fontes.md` com fonte e situação de cada afirmação. |
+| `ebookfy-03-planejar` | Definir ou mudar a ordem de leitura. | `notas/sumario.md`, pastas dos capítulos e `[[chapters]]` na ordem. |
+| `ebookfy-04-capitulos` | Escrever, reescrever, dividir, fundir ou mover capítulos. | `CHAPTER.md` completo, com exemplos executados. |
+| `ebookfy-05-imagens` | Inserir, trocar ou corrigir figuras. | Figuras em `imagens/` com legenda útil e origem registrada. |
+| `ebookfy-06-capa` | Criar ou atualizar a capa digital e conferir a capa do PDF. | `files.cover`, `files.logo` e a prova nos três formatos. |
+| `ebookfy-07-introducao` | Abrir o livro e levar o leitor à primeira ação. | Abertura do primeiro capítulo ou capítulo de introdução. |
+| `ebookfy-08-prefacio` | Apresentar a obra antes dos capítulos. | Texto de `files.preface`. |
+| `ebookfy-09-creditos` | Consolidar atribuições e licenças antes de distribuir. | Texto de `files.credits` e `notas/atribuicoes.md` reconciliado. |
+| `ebookfy-10-autor` | Escrever ou conferir a apresentação de autoria. | Texto de `files.author`. |
+| `ebookfy-11-conclusao` | Fechar a leitura com resultado e conferência final. | Encerramento do último capítulo ou capítulo final. |
+| `ebookfy-12-revisar` | Revisar a edição na ordem de leitura, executando os exemplos. | `notas/revisao.md` com achados, correções e verificações. |
+| `ebookfy-13-exportar` | Compilar e conferir os exemplares, ou investigar uma falha do build. | Arquivos em `output.directory` e a prova em `notas/entrega.md`. |
+| `ebookfy-14-distribuir` | Entregar a edição aprovada e conferir a cópia recebida. | Hashes, links e testes de acesso em `notas/entrega.md`. |
+| `ebookfy-15-migrar` | Trazer um livro que já existe em outro formato. | Projeto Ebookfy e `notas/migracao.md` com o mapa. |
 
-Compare ebookfy info --json com o briefing e registre lacunas de pesquisa antes da redação.
+A ordem serve para um livro novo. Para uma tarefa pontual, entre direto na etapa: trocar uma figura começa na 05, passa pela 09 e termina na 13; um livro antigo começa na 15 e segue para a 01, a 12 e a 13.
 
-## ebookfy-02-pesquisar
+## As notas de trabalho
 
-Leia a descrição do livro no ebook.toml. Para cada pergunta do sumário, reúna a fonte primária, a data de consulta e a passagem usada no capítulo. Guarde esse material em pesquisa/, fora dos capítulos publicados.
+As skills combinam entre si pelos arquivos de `notas/`, na raiz do livro. Cada etapa grava o seu registro e a seguinte o consulta: a pesquisa lê o briefing, a redação lê o sumário e as fontes, os créditos leem as atribuições que as etapas de imagem e capa acumularam, a distribuição lê a prova da exportação. Como `notas/` fica fora de `[[chapters]]`, nada dali entra na edição. A tabela completa dos arquivos está no capítulo de configuração.
 
-Reproduza comandos no ambiente citado e guarde a saída obtida. Registre as permissões de imagens e encaminhe a atribuição para files.credits. Leve lacunas ao editor antes de redigir a passagem.
+## O que as skills sabem do compilador
 
-## ebookfy-03-planejar
+As skills descrevem o comportamento real do Ebookfy, conferido em compilação:
 
-Liste as perguntas do leitor na ordem necessária para executar a tarefa. Para cada pergunta, reserve uma pasta com CHAPTER.md e escreva o resultado esperado e as fontes em notas de trabalho.
+- o texto entre colchetes de uma figura vira legenda visível e texto alternativo;
+- links entre capítulos usam a âncora do título, porque link para outro `CHAPTER.md` fica quebrado na edição;
+- títulos repetidos ganham sufixo no identificador, e rótulos de nota repetidos entre capítulos derrubam o build;
+- qualquer aviso do Pandoc interrompe a compilação;
+- frontmatter YAML não é lido e vira texto;
+- a capa do PDF é tipográfica, e `files.cover` vale para o EPUB e o MOBI.
 
-Ordene as entradas [[chapters]] no ebook.toml. Confira pelo CLI se o percurso começa com uma tarefa viável e termina com uma aplicação completa.
-
-## ebookfy-04-capitulos
-
-Abra o CHAPTER.md indicado por [[chapters]]. Use um título de nível 1 e apresente um problema concreto, a explicação e um exemplo reproduzível. Ao mover a pasta, leve as imagens junto.
-
-Para reordenar a leitura, mova a tabela inteira no TOML. Confira o título e a posição com ebookfy info.
-
-## ebookfy-05-imagens
-
-Guarde a imagem em imagens/ ao lado do CHAPTER.md correspondente. Use um nome descritivo e um caminho relativo como `![Descrição do detalhe](imagens/detalhe.png)`.
-
-Registre origem e permissão de uso no arquivo de créditos. Abra as três saídas e confira legenda, resolução e leitura em tela estreita.
-
-## ebookfy-06-capa
-
-Leia título, subtítulo e autoria da configuração. Em um manual de projeto, siga a marca do produto. Em um ebook editorial, parta da foto original autorizada e guarde sua atribuição.
-
-Exporte uma capa PNG ou JPEG, configure files.cover e confira a miniatura no leitor EPUB. Examine também a primeira página do PDF.
-
-## ebookfy-07-introducao
-
-Use a primeira entrada de [[chapters]] para uma introdução autônoma ou abra o primeiro capítulo com ela. Apresente o material de partida, o exemplo que acompanhará o percurso e a primeira ação do leitor.
-
-Releia files.preface. Corte a apresentação que já aparece ali e execute a primeira instrução com as informações disponíveis até esse ponto.
-
-## ebookfy-08-prefacio
-
-Abra files.preface. Apresente o público, os materiais necessários e o trabalho que o leitor terá produzido ao terminar. Indique o capítulo apropriado para leitores experientes.
-
-Confira se o sumário cobre os assuntos apresentados e reserve os exemplos detalhados para os capítulos.
-
-## ebookfy-09-creditos
-
-Abra files.credits. Registre autoria, edição, revisão, fontes de imagens e respectivas licenças. Consulte a autorização original de cada imagem antes de indicar condições de uso.
-
-Compare os nomes e as atribuições com book.authors, book.publisher e book.rights. Identifique material de terceiros com origem e link.
-
-## ebookfy-10-autor
-
-Abra files.author. Redija uma apresentação breve apoiada na participação real de cada pessoa ou organização no trabalho. Use a grafia de book.authors.
-
-Confira nomes e destinos dos links com as fontes fornecidas. Inclua apenas experiências verificáveis e pertinentes ao tema.
-
-## ebookfy-11-conclusao
-
-Consulte a promessa no prefácio e o último item de [[chapters]]. Retome o trabalho produzido pelo leitor, explique como conferir o resultado e proponha uma aplicação compatível com o material.
-
-Inclua a conclusão no último CHAPTER.md ou registre um capítulo próprio antes dos créditos. Confira o percurso completo na TUI.
-
-## ebookfy-12-revisar
-
-Leia o prefácio, cada capítulo na ordem configurada, créditos e autoria. Execute os exemplos, confirme referências e confira se cada capítulo entrega o que anuncia.
-
-Registre por arquivo a passagem examinada, a correção necessária e a conferência posterior. Abra a TUI para revisar título, edição e sequência.
-
-## ebookfy-13-exportar
-
-Confira os programas dos formatos pedidos em output.formats. Execute ebookfy build --json e leia a lista de arquivos produzidos.
-
-Abra PDF, EPUB e MOBI quando selecionados. Confira metadados, capa, índice, imagens e acentos. Registre a versão do livro junto aos artefatos entregues.
-
-## ebookfy-14-distribuir
-
-Consulte book.version, book.rights e output.formats no ebook.toml. Reúna somente os arquivos produzidos pela compilação daquela edição e calcule SHA-256 para a conferência após a transferência.
-
-Confirme o destino autorizado para distribuição. Depois do envio, baixe os exemplares pelo mesmo caminho que o leitor usará, compare os hashes e registre os links junto à edição.
-
-## ebookfy-15-migrar
-
-Em um projeto com reading-order.txt, use a ordem explícita do guia. Para um ebook de conteúdo, separe o manuscrito por títulos e preserve as notas de pesquisa e revisão fora da leitura.
-
-Transfira os metadados para o TOML e os recursos para as pastas de capítulo. Compare o texto e a sequência das novas saídas com a edição anterior.
+Por isso a etapa 04 traz uma referência do Markdown aceito, a 12 traz comandos para achar esses problemas antes do build e a 13 traz uma tabela de diagnóstico por mensagem de erro.
 
 ## Usar as referências e as checklists
 
-No starter kit, cada pasta em `.agents/skills/` contém um `SKILL.md` e um diretório `references/`. Abra primeiro o arquivo da etapa. A seção de referência indica quando recorrer ao exemplo ou à tabela de diagnóstico. Na checklist, marque somente as verificações que você realizou e anote o arquivo ou exemplar usado na prova.
+Abra primeiro o `SKILL.md` da etapa. O procedimento indica o passo onde cada referência ajuda: o modelo de briefing na etapa 01, a ficha de apuração na 02, a anatomia do capítulo e o Markdown do Ebookfy na 04, as provas de capa na 06, as passadas de revisão na 12. Os exemplos das referências usam um livro fictício, *Primeiros fluxos no n8n*, para mostrar cada registro preenchido.
 
-Por exemplo, ao receber uma fotografia para o segundo capítulo, use a etapa 05 para escolher o detalhe e testar a figura na página. A etapa 09 ajuda a relacionar aquele arquivo à atribuição recebida. Na etapa 13, leia a passagem no EPUB com a fonte ampliada e compare com a página do PDF. Se o texto estiver legível em apenas um formato, registre esse resultado e retorne à figura antes de distribuir.
+Na checklist, marque somente o que você conferiu e diga onde conferiu: o arquivo lido, o comando executado, o exemplar aberto.
 
 ## Conduzir uma revisão com o agente
 
-Suponha que o capítulo da oficina já tenha texto e uma figura. Abra o agente na cópia do livro e peça a revisão de um capítulo específico. Informe o resultado esperado e os arquivos que ele pode consultar. Este pedido é suficiente para iniciar uma leitura dirigida.
+Suponha que você já tenha o segundo capítulo do exercício **Caderno da oficina**, criado no capítulo 3 deste manual em `capitulos/02-oficina/CHAPTER.md`, com texto e a figura provisória `imagens/livro.png`. Abra o agente na pasta do livro e peça uma revisão dirigida:
 
-> Use ebookfy-12-revisar no segundo capítulo. Confira se os passos permitem preparar a bancada com os materiais citados, se a imagem está na pasta do capítulo e se os créditos identificam sua origem. Registre os trechos que precisam de ajuste antes de editar.
+> Use ebookfy-12-revisar no capítulo "Conferir o material da oficina". Faça só o diagnóstico, sem editar. Confira se os passos permitem preparar a bancada com os materiais citados, se a figura está na pasta do capítulo com legenda que diz o que observar e se a origem dela está em notas/atribuicoes.md. Registre os achados em notas/revisao.md.
 
-Depois da leitura, compare as observações com a passagem mencionada. Quando uma instrução de montagem precisar mudar, peça um ajuste naquele trecho e repita a prova de leitura. A revisão editorial precisa examinar o exemplo e seu efeito no texto. A compilação verifica outra parte do trabalho, como a disponibilidade dos recursos e a leitura dos formatos de saída.
-
-Para migrar um projeto antigo, comece pela skill 15 e volte à organização ou ao planejamento conforme o estado das fontes. Para trocar apenas a figura de um capítulo, entre pela skill 05, revise os créditos e passe à exportação. A sequência serve como percurso para um livro novo e permite retomar tarefas pontuais de uma edição existente.
+O agente lê o capítulo na ordem, executa o que for executável e registra cada achado com o local, o efeito no leitor, a correção proposta e a gravidade. Leia o registro ao lado do capítulo. Para corrigir, peça o ajuste de um achado específico e a repetição da verificação que o revelou. A revisão examina o texto e os exemplos; a compilação confere outra coisa, a leitura dos arquivos e dos formatos.

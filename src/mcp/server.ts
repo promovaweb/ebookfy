@@ -5,7 +5,7 @@
  * `resources/` and `prompts.ts`, and connects it to the stdio transport. The
  * same assembly feeds `mcp --list`, which describes what is registered
  * without opening the transport. To add a tool, create `tools/<name>.ts`
- * following the stub in `template/tool/` and register it in `registerAll`.
+ * and register it in `registerAll`.
  */
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";

@@ -4,8 +4,7 @@
  * Converts the command registry into the JSON document defined by the
  * OpenCLI Specification 0.1 (https://opencli.org). Agents and documentation
  * generators read it to learn how to invoke the binary without opening the
- * code. `bun run opencli` writes the result to `docs/opencli.json`, and
- * `bun run opencli:check` fails when the file is out of date.
+ * code. `ebookfy --opencli` prints this document to stdout.
  */
 import { manifest } from "../app/manifest.ts";
 import { exitCodeDescriptions, ExitCode } from "../app/exit-codes.ts";

@@ -28,6 +28,11 @@ test("ficha, formatos selecionados e diagnóstico de capítulo ausente", (t) => 
   const info = rodar("info");
   assert.equal(info.title, "Meu primeiro ebook");
   assert.equal(info.version, "0.1.0");
+  // Títulos com id explícito do Pandoc aparecem sem o bloco de atributos.
+  assert.deepEqual(
+    info.chapters.map((c) => c.title),
+    ["Preparar a primeira edição", "Escrever um capítulo", "Compilar e conferir"],
+  );
   const toml = join(cwd, "ebook.toml");
   const fonte = readFileSync(toml, "utf8");
   writeFileSync(toml, fonte.replace('["pdf", "epub", "mobi"]', '["mobi"]'));

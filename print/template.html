@@ -8,6 +8,11 @@
   $for(css)$
   <link rel="stylesheet" href="$css$">
   $endfor$
+  $if(highlighting-css)$
+  <style>
+    $highlighting-css$
+  </style>
+  $endif$
   <style>
     @page {
       @bottom-center {

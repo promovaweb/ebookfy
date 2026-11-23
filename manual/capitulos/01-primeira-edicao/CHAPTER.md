@@ -27,7 +27,7 @@ Abra o PDF na pasta indicada em [output]. Siga um item do sumário e veja onde c
 
 ## Transformar o exemplo no seu livro
 
-Suponha que você vá distribuir um caderno de oficina. Use `ebookfy init` dentro do seu repositório vazio. O comando obtém a edição v0.2.0 do starter kit pelo Git autenticado, preserva o diretório .git do projeto e instala o conteúdo do modelo, inclusive as 15 skills. Confira a ficha com `ebookfy info` e veja os arquivos novos com `git status --short`. Uma pasta vazia sem Git também aceita o comando. Se houver um README ou outro arquivo na pasta, o CLI informa o nome encontrado e encerra a operação.
+Neste exercício, você vai criar o livro **Caderno da oficina** a partir do starter kit. Use `ebookfy init` dentro do seu repositório vazio. O comando obtém a edição v0.3.0 do starter kit pelo Git autenticado, preserva o diretório .git do projeto e instala o conteúdo do modelo, inclusive as 15 skills. Confira a ficha com `ebookfy info` e veja os arquivos novos com `git status --short`. Uma pasta vazia sem Git também aceita o comando. Se houver um README ou outro arquivo na pasta, o CLI informa o nome encontrado e encerra a operação.
 
 Na ficha, escreva `title = "Caderno da oficina"`, `slug = "caderno-da-oficina"` e um identificador próprio em `identifier`. O título aparece na ficha e nos metadados. O slug entra no nome do arquivo. O identificador acompanha a obra no catálogo. Registre a autoria antes de gerar a capa para que o nome no desenho coincida com o nome que aparece no leitor digital.
 

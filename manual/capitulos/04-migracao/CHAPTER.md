@@ -1,8 +1,8 @@
 # Trazer um manuscrito de outro projeto
 
-Os ebooks de projetos como o Termfy têm uma lista de leitura que seleciona as páginas do guia. Já os ebooks editoriais do Hub podem reunir a obra em ebook.md, com pesquisa, plano e checklist em pastas vizinhas. Antes de copiar os arquivos, abra a edição disponível e anote o primeiro e o último título de cada parte.
+Os ebooks de projetos como o Termfy têm uma lista de leitura que seleciona as páginas do guia. Já os ebooks editoriais do Hub podem reunir a obra em `ebook.md`. Antes de copiar os arquivos, abra a edição disponível e anote em `notas/migracao.md` o primeiro e o último título de cada parte.
 
-Para um guia de projeto, percorra reading-order.txt e leve cada página selecionada a uma pasta de capítulo. Para um manuscrito único, separe prefácio, capítulos, créditos e apresentação do autor. Transfira os metadados editoriais para ebook.toml. Mantenha a pesquisa e a checklist ao lado das fontes enquanto revisa a adaptação.
+Para um guia de projeto, percorra reading-order.txt e leve cada página selecionada a uma pasta de capítulo. Para um manuscrito único, separe prefácio, capítulos, créditos e apresentação do autor. Transfira os metadados editoriais para ebook.toml. Registre as referências em `notas/fontes.md` e os ajustes da adaptação em `notas/revisao.md`.
 
 Ao transportar figuras de dois capítulos, preserve cada arquivo perto de seu texto. Isso permite que capítulos diferentes tenham uma imagem chamada exemplo.png. Confira cada figura pelo conteúdo depois de compilar. Compare o sumário, os comandos e a sequência com o guia anterior.
 
@@ -14,7 +14,7 @@ Ao transportar figuras de dois capítulos, preserve cada arquivo perto de seu te
 | Ordem do guia do projeto | Uma tabela `[[chapters]]` por capítulo | Comparar o primeiro e o último item com o sumário publicado. |
 | Texto de capítulo | Uma pasta com `CHAPTER.md` | Abrir o capítulo pelo índice no EPUB. |
 | Fotografias, diagramas e capturas | Pasta de imagens do capítulo que os utiliza | Conferir o conteúdo da figura e a legenda. |
-| Pesquisa, pautas e notas de revisão | Pastas de trabalho fora da lista de capítulos | Conferir o sumário e procurar no livro uma nota interna conhecida. |
+| Pesquisa, pautas e notas de revisão | Pasta `notas/` na raiz do livro | Conferir o sumário e procurar no livro uma nota interna conhecida. |
 
 Faça primeiro uma prova com dois capítulos, de preferência um capítulo de texto e outro com figuras ou comandos. A amostra revela problemas de títulos, caminhos e acentos antes de transferir o restante da obra. Mantenha os originais disponíveis até terminar a comparação.
 

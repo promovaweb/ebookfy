@@ -1,10 +1,12 @@
 # Revisar os arquivos de leitura
 
-O PDF usa o kit A4 da Promovaweb com Inter e Manrope, sumário e paginação. O EPUB usa texto reajustável e a capa indicada no TOML. Para gerar MOBI, o Ebookfy cria primeiro um EPUB temporário e o converte com o Calibre. Você pode selecionar apenas MOBI na configuração.
+O PDF usa o kit A4 da Promovaweb com Inter e Manrope, sumário e paginação. A capa tipográfica do PDF reúne o símbolo de `files.logo`, a editora (`book.publisher`), o título, o subtítulo quando preenchido e a descrição. Ela mostra “Edição X.Y.Z” com `book.version` e “Gerado em” com `book.date`. Os nomes dos autores ficam fora dessa página.
+
+A imagem de `files.cover` é a capa do EPUB e do MOBI. Se você omitir `files.logo`, o PDF reduz essa imagem inteira para o espaço do símbolo. O texto do EPUB se ajusta ao tamanho da tela. Para gerar MOBI, o Ebookfy cria primeiro um EPUB temporário e o converte com o Calibre. Você pode selecionar apenas MOBI na configuração.
 
 Use ebookfy build --json em automações. Leia data.arquivos somente quando o processo sair com sucesso. O compilador prepara os formatos numa pasta temporária e começa a mover os resultados depois de terminar as conversões. Recompilar com o mesmo slug e versão substitui os arquivos daquela edição.
 
-Se faltar um programa, o erro traz seu nome. Se uma imagem sumir, confira a grafia e as maiúsculas do caminho no capítulo. Abra o PDF e verifique quebras e rodapé. No EPUB, navegue pelo índice e teste uma fonte maior. Abra também o MOBI e confira se os acentos, a capa e as legendas sobreviveram à conversão.
+Qualquer aviso do Pandoc interrompe a compilação. A mensagem de falha de um conversor começa com o nome do programa, como `pandoc:`, `weasyprint:` ou `ebook-convert:`. Se uma imagem sumir, confira a grafia e as maiúsculas do caminho no capítulo. Abra o PDF e verifique quebras e rodapé. No EPUB, navegue pelo índice e teste uma fonte maior. Abra também o MOBI e confira se os acentos, a capa e as legendas sobreviveram à conversão.
 
 ## Escolher o formato da prova
 
@@ -16,7 +18,7 @@ Se faltar um programa, o erro traz seu nome. Se uma imagem sumir, confira a graf
 
 Para revisar texto ao longo da escrita, deixe apenas EPUB na lista de formatos. Ao preparar a entrega, restaure a lista acordada para a edição. A lista retornada por `build --json` contém os arquivos daquela execução. Exemplares de versões anteriores podem continuar na pasta de saída.
 
-No exemplo da oficina, a compilação com três formatos e versão `1.0.0` retorna a seguinte lista dentro de `data.arquivos`. Os caminhos se referem à raiz do livro, inclusive se o comando partiu de um capítulo.
+No **Caderno da oficina**, criado no capítulo 1 com a ficha do capítulo 2, a compilação com três formatos e versão `1.0.0` retorna a seguinte lista dentro de `data.arquivos`. Os caminhos se referem à raiz do livro, inclusive se o comando partiu de um capítulo.
 
 ```json
 [
@@ -30,7 +32,7 @@ No exemplo da oficina, a compilação com três formatos e versão `1.0.0` retor
 
 Abra uma passagem com texto e uma passagem com imagem em cada formato. Siga o índice até ambas, confira o título e volte ao sumário. No PDF, procure uma tabela ou bloco de código perto de uma quebra de página. No EPUB, aumente a fonte e gire a tela. No MOBI, confira o mesmo trecho após a conversão.
 
-Para conferir uma transferência, calcule o SHA-256 dos arquivos da edição e compare com a cópia baixada do destino. Execute o comando na raiz do projeto em Linux, depois de ajustar o nome e a versão.
+Para conferir uma transferência, calcule o SHA-256 dos arquivos da edição e compare com a cópia baixada do destino. O comando abaixo usa os arquivos do exercício **Caderno da oficina** dos capítulos 1 a 3. Execute-o na raiz do livro em Linux.
 
 ```bash
 sha256sum ebook/caderno-da-oficina-v1.0.0.{pdf,epub,mobi}

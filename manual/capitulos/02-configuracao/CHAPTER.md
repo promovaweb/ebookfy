@@ -19,11 +19,11 @@ Use o arquivo da raiz como ficha da edição. O título de cada capítulo vem do
 | output.directory | Pasta dos resultados, relativa à raiz. |
 | output.formats | Lista com pdf, epub e mobi. Selecione um, dois ou os três. |
 
-Uma edição 1.1.0 do livro com slug oficina produz oficina-v1.1.0.epub quando EPUB está selecionado. Preserve o identificador ao corrigir o texto da mesma obra. Use uma nova versão para manter a edição anterior disponível.
+No exercício iniciado no capítulo 1, o slug `caderno-da-oficina` e a versão `1.0.0` produzem `caderno-da-oficina-v1.0.0.epub` quando EPUB está selecionado. Preserve o identificador ao corrigir o texto da mesma obra. Use uma nova versão para manter a edição anterior disponível.
 
 ## Uma ficha completa para adaptar
 
-O exemplo usa os caminhos que já existem no starter kit. Você pode copiá-lo para uma cópia descartável do projeto, executar `ebookfy info --json` e comparar cada campo da resposta com a configuração.
+Na raiz do **Caderno da oficina** criado no capítulo 1, use esta ficha para preparar a edição nos três formatos. Salve-a como `ebook.toml` e execute `ebookfy info --json` para conferir os campos.
 
 ```toml
 [book]
@@ -58,14 +58,30 @@ O TOML agrupa os dados da obra, os caminhos editoriais e a exportação em tabel
 
 ## Separar a edição do livro da versão do aplicativo
 
-A versão que `ebookfy --version` imprime identifica o aplicativo instalado. Já `book.version` identifica o manuscrito. Um livro com versão `1.0.0` pode ser compilado pelo CLI `0.1.1`. Para publicar uma revisão do conteúdo mantendo a edição anterior disponível, altere a versão do livro e confira os novos nomes em `ebookfy build --json`.
+A versão que `ebookfy --version` imprime identifica o aplicativo instalado. Já `book.version` identifica o manuscrito. Os dois números podem ser diferentes. Para publicar uma revisão do conteúdo mantendo a edição anterior disponível, altere a versão do livro e confira os novos nomes em `ebookfy build --json`.
 
-Escreva os caminhos em relação à pasta do TOML. Cada texto editorial precisa existir e ter um título de nível 1. A lista exige pelo menos um capítulo e um formato. A ficha rejeita campos desconhecidos, entradas de capítulo repetidas e a repetição do mesmo formato. Ao corrigir um caminho, confira também a caixa das letras no nome do arquivo. Em Linux, `chapter.md` e `CHAPTER.md` são nomes distintos.
+Escreva os caminhos em relação à pasta do TOML. Um caminho absoluto ou que aponte para fora do livro causa o erro `Caminho fora do projeto`. Cada texto editorial precisa existir e ter um título de nível 1. A lista exige pelo menos um capítulo e um formato. A ficha rejeita campos desconhecidos, entradas de capítulo repetidas e a repetição do mesmo formato. Ao corrigir um caminho, confira também a caixa das letras no nome do arquivo. Em Linux, `chapter.md` e `CHAPTER.md` são nomes distintos.
 
 ## Escolher o arquivo certo
 
 Abra o TOML do livro que você quer editar. No repositório do framework, a raiz contém o exemplo **Meu primeiro ebook**. A pasta `manual/` contém outro projeto com ficha própria. Dentro de qualquer capítulo, `ebookfy info` mostra a obra encontrada.
 
+Guarde os dados da edição no `ebook.toml`. O compilador trata o frontmatter YAML de um `CHAPTER.md` como texto e publica seu conteúdo no corpo do livro.
+
 Para mudar a ordem de leitura, mova a tabela inteira de um capítulo no TOML. Para corrigir a legenda, abra o CHAPTER.md indicado por aquela tabela. Para trocar a capa digital, confira `files.cover`. Depois de editar, compile de novo para atualizar os arquivos de `output.directory`.
 
 As preferências pessoais do terminal ficam em `~/.ebookfy/settings.json`. Consulte-as com `ebookfy config list`. A variável `EBOOKFY_HOME` permite usar outro perfil. Credenciais e chave pertencem ao perfil pessoal e ficam fora das pastas compartilhadas do livro.
+
+## Guardar as notas de trabalho
+
+Crie a pasta `notas/` na raiz do livro e deixe seus arquivos fora de `[[chapters]]`.
+
+| Material | Onde guardar |
+| --- | --- |
+| Público, objetivo e escopo do livro | `notas/briefing.md` |
+| Fontes consultadas e capturas | `notas/fontes.md` para as referências e `notas/fontes/` para as capturas |
+| Plano dos capítulos | `notas/sumario.md` |
+| Autoria e licenças de material de terceiros | `notas/atribuicoes.md` |
+| Ajustes encontrados na leitura de prova | `notas/revisao.md` |
+| Arquivos e formatos entregues | `notas/entrega.md` |
+| Correspondência entre o manuscrito original e o livro | `notas/migracao.md` |

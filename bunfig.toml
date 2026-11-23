@@ -1,5 +1,5 @@
 # Bun configuration for the starter kit.
-# Tests live in tests/ and use the native `bun test` runner.
+# `npm test` runs the tests in tests/ with `node --test`.
 [test]
 root = "./tests"
 coverage = false

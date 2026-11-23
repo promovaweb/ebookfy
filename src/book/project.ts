@@ -75,8 +75,18 @@ export function localizarLivro(inicio = process.cwd()): string | undefined {
   }
 }
 
+/** Remove o bloco de atributos do Pandoc (`{#id .classe}`) que pode fechar um título. */
+function semAtributos(titulo: string): string {
+  return titulo.replace(/\s*\{[^{}]*\}\s*$/, "").trim();
+}
+
 /** Lê somente o início de capítulos com título simples. Nos demais, interpreta o Markdown. */
 function tituloDaSecao(path: string, root: string): string {
+  return semAtributos(tituloBruto(path, root));
+}
+
+/** Devolve o primeiro título de nível 1 como escrito no arquivo. */
+function tituloBruto(path: string, root: string): string {
   const fd = openSync(path, "r");
   try {
     const inicio = Buffer.alloc(1024);

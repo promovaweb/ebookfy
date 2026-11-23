@@ -10,7 +10,13 @@ Atualize a validação de `src/book/project.ts` e o capítulo de configuração 
 
 ## Publicação
 
-Use a versão de `VERSION` no pacote, no lockfile, no TOML do manual e no changelog. Gere e abra PDF, EPUB e MOBI. Faça o commit, crie a tag e a GitHub Release privada. Na máquina autenticada da Promovaweb, execute `npm pack` no commit da tag e publique o tarball com `npm publish ./promovaweb-ebookfy-X.Y.Z.tgz --access public`. Confirme a versão com `npm view @promovaweb/ebookfy version`. O npm distribui o CLI compilado, o kit de impressão e a marca.
+Use a versão de `VERSION` no pacote, no lockfile, no TOML do manual e no changelog. Gere e abra PDF, EPUB e MOBI. A pasta `manual/ebook/` guarda só os três arquivos da versão atual: remova os da versão anterior com `git rm` e anexe os novos à GitHub Release, onde as edições antigas continuam disponíveis. Faça o commit, crie a tag e a GitHub Release privada. Na máquina autenticada da Promovaweb, execute `npm pack` no commit da tag e publique o tarball com `npm publish ./promovaweb-ebookfy-X.Y.Z.tgz --access public`. Confirme a versão com `npm view @promovaweb/ebookfy version`. O npm distribui o CLI compilado, o kit de impressão e a marca.
+
+## Manter as skills
+
+As 15 skills ficam em `skills/ebookfy-NN-etapa/`, cada uma com `SKILL.md` e `references/`. O `SKILL.md` segue a mesma ordem de seções em todas as etapas: quando usar, antes de começar, procedimento, regras do Ebookfy, problemas frequentes, entrega, checklist e referências. Cada referência precisa funcionar sozinha, porque a skill pode ser instalada isolada.
+
+Toda afirmação sobre o compilador deve ser conferida num build real antes de entrar numa skill. Quando o comportamento do CLI mudar, atualize no mesmo trabalho a skill da etapa, o capítulo do manual e o livro de exemplo. Rode `npm test` (o teste das skills confere a numeração, as checklists e as referências) e, no Hub, `npm run validar:skills-prohibited`. Depois do push, atualize o starter kit com `npx skills add` e publique uma nova tag dele.
 
 ## Conferir a documentação e as capturas
 

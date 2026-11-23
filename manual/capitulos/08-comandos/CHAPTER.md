@@ -31,7 +31,14 @@ Texto é o padrão quando `output.format` em settings.json é `text`. Com
 `--json`, ou com `output.format = json`, a saída segue este envelope:
 
 ```json
-{ "ok": true, "command": "ebookfy config get", "data": { "key": "tui.theme", "value": "terminal" } }
+{
+  "ok": true,
+  "command": "ebookfy config get",
+  "data": {
+    "key": "tui.theme",
+    "value": "terminal"
+  }
+}
 ```
 
 Em erro:
@@ -40,7 +47,14 @@ Em erro:
 {
   "ok": false,
   "command": "ebookfy credentials get",
-  "error": { "code": 4, "name": "CREDENTIALS", "message": "Credential \"x\" not found.", "details": { "name": "x" } }
+  "error": {
+    "code": 4,
+    "name": "CREDENTIALS",
+    "message": "Credential \"x\" not found. Save it with: ebookfy credentials set x",
+    "details": {
+      "name": "x"
+    }
+  }
 }
 ```
 
@@ -57,7 +71,7 @@ os dois: o envelope para a mensagem, o code para a classe da falha.
 | `credentials set\|get\|list\|remove\|status\|clear\|rotate-key` | Cofre cifrado em credentials.json. |
 | `mcp [--list]` | Servidor MCP via stdio, ou listagem do que ele registra. |
 | `skill [topic]` | Mesmo efeito de `--skill`. |
-| `doctor` | Confere runtime, TTY, pasta, settings, chave e cofre. |
+| `doctor` | Confere runtime, TTY, pasta, settings, chave, cofre e conversores. |
 | `completion <shell>` | Gera script para `bash`, `zsh` ou `fish`. |
 
 ## Diagnóstico e completion
@@ -68,6 +82,11 @@ decifragem do cofre, versão e plataforma. Cada linha usa ✓, ! ou ✗.
 Em JSON, `data` contém `{ checks, ok }`; cada check tem `name`, `status`
 e `detail`. Ausência de TTY ou de arquivos ainda não criados gera `warn`.
 Uma verificação com `fail` produz exit code 3; as demais retornam 0.
+Para cada conversor encontrado no PATH, o comando mostra a primeira linha de
+`--version`. A ausência de `pandoc` impede todas as exportações. Sem
+`weasyprint`, o PDF fica indisponível. Sem `ebook-convert` (Calibre), o MOBI
+fica indisponível. Cada ausência gera um aviso (`warn`). Dentro de um livro,
+o aviso indica quais formatos de `output.formats` dependem do conversor.
 O diagnóstico não cria arquivos nem mostra segredos.
 
 `ebookfy completion <shell>` imprime o script em stdout. O argument `shell`

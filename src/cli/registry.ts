@@ -8,8 +8,7 @@
  * option documented here shows up everywhere without duplication.
  *
  * To add a command: create `src/cli/commands/<name>.ts` exporting a
- * `Command` and register it in `commands.ts`. The stub in `template/command/`
- * shows the expected shape.
+ * `Command` and register it in `commands.ts`.
  */
 import { SKILL_TOPICS } from "../skill/topics.ts";
 import type { ExitCode } from "../app/exit-codes.ts";

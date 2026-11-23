@@ -4,7 +4,7 @@ Abra um terminal na pasta do livro ou dentro de um capítulo e execute `ebookfy`
 
 ![Menu do livro ao lado do sumário de Meu primeiro ebook](imagens/tui-livro.png)
 
-Use as setas para cima e para baixo para escolher uma opção. O marcador `>` indica a seleção. Pressione Enter ou clique no nome para abrir. Em terminais com 80 colunas ou mais, o sumário aparece ao lado do menu. Em uma janela mais estreita, abra **Capítulos** para consultar a mesma lista.
+Use as setas para cima e para baixo para escolher uma opção. O marcador `>` indica a seleção. Pressione Enter ou clique no nome para abrir. Em terminais com 80 colunas ou mais, o sumário aparece ao lado do menu. Entre 60 e 79 colunas, abra **Capítulos** para consultar a mesma lista. A interface precisa de pelo menos 60 colunas e 16 linhas. Se faltar largura ou altura, ela mostra **Terminal pequeno**.
 
 | Opção | Tecla | O que você encontra |
 | --- | --- | --- |

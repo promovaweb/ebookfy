@@ -29,7 +29,8 @@ em `--opencli`, na tool MCP `exit_codes` e na resource `ebookfy://exit-codes`.
 | O CLI informa um arquivo ausente | Abra o caminho a partir da raiz do livro e confira maiúsculas e minúsculas. | Consulte a ficha novamente. |
 | Um capítulo aparece com título incorreto | Localize o primeiro título de nível 1 no arquivo indicado. | Salve o capítulo e recarregue a TUI com `r`. |
 | A ficha abre e o build falha ao ler uma figura | Abra a imagem pelo caminho usado no Markdown, relativo ao capítulo. | Compile EPUB e procure a figura no capítulo. |
-| A geração falha ao iniciar um conversor | Veja o nome do programa na mensagem e confira sua instalação no terminal. | Rode a opção `--version` do programa e repita o build. |
+| A geração falha ao iniciar um conversor | Execute `ebookfy doctor` na pasta do livro para identificar o conversor ausente e os formatos afetados. | Disponibilize o conversor no PATH, confira a versão com `ebookfy doctor` e repita o build. |
+| `A saída precisa ficar em uma pasta local do projeto.` | Confira se a pasta de saída ou alguma pasta do caminho passa por um link simbólico. | Aponte `output.directory` para uma pasta local dentro do livro e compile de novo. |
 | A TUI exige um terminal interativo | Confira se você está em um pipe ou job automatizado. | Use `ebookfy info --json` para a ficha ou abra a TUI em um terminal. |
 
 ## Preservar o código de saída no shell

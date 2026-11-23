@@ -15,8 +15,7 @@
  * The shell owns layout and modals. Screens read `ctx.layout()` to compose
  * for the current width, ask questions with `ctx.confirm`, `ctx.prompt` and
  * `ctx.choose`, report with `ctx.notify` and `ctx.status`, and list files in
- * `watch` to be refreshed when another process changes them. The stub in
- * `template/screen/` shows the skeleton.
+ * `watch` to be refreshed when another process changes them.
  */
 import type { CliRenderer, Renderable } from "@opentui/core";
 import type { Theme } from "./theme.ts";

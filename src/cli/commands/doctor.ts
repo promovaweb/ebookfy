@@ -1,5 +1,8 @@
 /** Read-only environment diagnostics shared by CLI and MCP. */
 import { statSync, readFileSync } from "node:fs";
+import { join } from "node:path";
+import { spawnSync } from "node:child_process";
+import { localizarLivro } from "../../book/project.ts";
 import { manifest } from "../../app/manifest.ts";
 import { ExitCode } from "../../app/exit-codes.ts";
 import { paths } from "../../config/paths.ts";
@@ -11,6 +14,44 @@ export interface DoctorCheck {
   name: string;
   status: "ok" | "warn" | "fail";
   detail: string;
+}
+
+/** Lê output.formats do livro alcançável a partir da pasta atual; sem livro ou com ficha ilegível, devolve lista vazia. */
+function formatosDeclarados(): string[] {
+  const raiz = localizarLivro();
+  if (!raiz) return [];
+  try {
+    const ficha = Bun.TOML.parse(readFileSync(join(raiz, "ebook.toml"), "utf8"));
+    const saida = "output" in ficha ? ficha.output : undefined;
+    if (saida && typeof saida === "object" && "formats" in saida && Array.isArray(saida.formats))
+      return saida.formats.filter((formato): formato is string => typeof formato === "string");
+  } catch {
+    // A ficha ilegível não impede a verificação do ambiente.
+  }
+  return [];
+}
+
+/** Confere pandoc, weasyprint e ebook-convert no PATH. Ausência gera aviso com os formatos afetados, nunca falha. */
+function verificarConversores(): DoctorCheck[] {
+  const declarados = formatosDeclarados();
+  const conversores = {
+    pandoc: ["pdf", "epub", "mobi"],
+    weasyprint: ["pdf"],
+    "ebook-convert": ["mobi"],
+  };
+  return Object.entries(conversores).map(([name, formatos]) => {
+    const caminho = Bun.which(name);
+    if (!caminho) {
+      const afetados = declarados.filter((formato) => formatos.includes(formato));
+      let detail = `Ausente do PATH. Exportação indisponível: ${formatos.join(", ")}.`;
+      if (afetados.length) detail += ` Formatos afetados neste livro: ${afetados.join(", ")}.`;
+      return { name, status: "warn", detail };
+    }
+    const resultado = spawnSync(caminho, ["--version"], { encoding: "utf8", timeout: 5000 });
+    const versao = (resultado.stdout?.trim() || resultado.stderr?.trim() || "").split(/\r?\n/)[0];
+    if (resultado.status === 0 && versao) return { name, status: "ok", detail: versao };
+    return { name, status: "warn", detail: "Encontrado no PATH, mas não foi possível consultar a versão." };
+  });
 }
 
 /** Collects independent checks without writing files or exposing secrets. */
@@ -45,12 +86,13 @@ export function collectDoctorChecks(runtime = { version: Bun.version, stdin: Boo
   inspect("credentials", paths.credentials(), () => { readVault(); }, "Vault decrypted successfully");
   add("binary", "ok", `${manifest.bin} ${manifest.version}`);
   add("platform", "ok", `${process.platform}-${process.arch}`);
+  checks.push(...verificarConversores());
   return { checks, ok: checks.every((check) => check.status !== "fail") };
 }
 
 export const doctorCommand: Command = {
   name: "doctor",
-  description: "Check runtime, terminal, settings, key source and vault readability without changing files.",
+  description: "Confere runtime, terminal, perfil, chave, cofre e conversores de exportação.",
   exitCodes: [ExitCode.CONFIG],
   run: () => {
     const data = collectDoctorChecks();

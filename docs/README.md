@@ -28,4 +28,4 @@ Para consultar o guia editorial no próprio terminal, execute `ebookfy --skill e
 
 ## Ler o manual completo
 
-O manual reúne os doze guias na ordem configurada no [TOML do manual](../manual/ebook.toml). Escolha [PDF](../manual/ebook/manual-ebookfy-v0.4.1.pdf) para páginas fixas, [EPUB](../manual/ebook/manual-ebookfy-v0.4.1.epub) para ajustar a fonte no leitor ou [MOBI](../manual/ebook/manual-ebookfy-v0.4.1.mobi) para leitores compatíveis.
+O manual reúne os doze guias na ordem configurada no [TOML do manual](../manual/ebook.toml). Escolha [PDF](../manual/ebook/manual-ebookfy-v0.5.0.pdf) para páginas fixas, [EPUB](../manual/ebook/manual-ebookfy-v0.5.0.epub) para ajustar a fonte no leitor ou [MOBI](../manual/ebook/manual-ebookfy-v0.5.0.mobi) para leitores compatíveis.

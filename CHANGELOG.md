@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.5.0
+
+- As 15 skills foram reescritas. Cada uma traz quando usar, o procedimento passo a passo, as regras do compilador que afetam a etapa, uma tabela de problemas frequentes, a entrega e uma checklist ampliada. São 26 referências com modelos preenchidos, todas conferidas num build real: briefing, ficha de apuração, roteiro de capítulo, Markdown aceito, capturas e legendas, especificações e provas de capa, registro de atribuição, passadas de revisão com comandos, prova dos formatos, diagnóstico do build, conferência da entrega e mapa de migração.
+- As etapas combinam entre si pelos registros de `notas/`, fora da edição. A etapa 13 grava `notas/build.json`, e a 14 distribui exatamente os exemplares conferidos.
+- O livro de exemplo ganhou três capítulos que mostram, em uso, figura com legenda, tabela, código, nota de rodapé, links entre capítulos e a conferência da edição.
+- `ebookfy doctor` mostra a versão do Pandoc, do WeasyPrint e do `ebook-convert`, e avisa quais formatos ficam indisponíveis quando falta algum.
+- O rodapé do PDF mostra o título do livro. Antes, a quebra automática de linha do Pandoc invalidava a regra, e o rodapé mostrava "Documento".
+- Os blocos de código ganharam realce de sintaxe no PDF.
+- Títulos com identificador explícito (`# Título {#id}`) aparecem sem o bloco de atributos no `info` e na TUI.
+- O manual explica a capa tipográfica do PDF, os links entre capítulos, as notas de rodapé com prefixo, os avisos do Pandoc que interrompem o build, o frontmatter ignorado e as notas de trabalho. Mensagens e saídas do CLI citadas no manual foram corrigidas.
+- O `init` usa o starter kit 0.3.0. A pasta `manual/ebook/` guarda só a edição atual; as anteriores ficam nas GitHub Releases.
+
 ## 0.4.1
 
 - Revisa a explicação das preferências pessoais do terminal e atualiza os três formatos do manual.

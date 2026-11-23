@@ -69,6 +69,8 @@ export function compilar() {
           "--standalone",
           "--embed-resources",
           "--to=html5",
+          // Sem quebra automática: o título entra numa string CSS do rodapé, que não aceita quebra de linha.
+          "--wrap=none",
           "--template",
           resolve(kit, "template.html"),
           "--css",

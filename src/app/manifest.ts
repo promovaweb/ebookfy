@@ -3,10 +3,7 @@
  *
  * Single source of identity for the executable: command name, title,
  * version, description, author and links. Help text, the About tab, the MCP
- * server and the OpenCLI description all read from here. When this
- * repository is used as a template, `bun run init -- --name <bin>` rewrites
- * the `termfy` block and the `name`, `bin` and `description` fields of
- * package.json.
+ * server and the OpenCLI description all read from here.
  *
  * package.json is read at build time: Bun embeds the JSON in the compiled
  * binary, so the manifest stays valid outside the repository.

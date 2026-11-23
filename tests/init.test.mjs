@@ -67,14 +67,14 @@ test("init conserva o repositório de destino, instala arquivos ocultos e permit
     "-qm",
     "modelo",
   );
-  git(modelo, "tag", "v0.2.0");
+  git(modelo, "tag", "v0.3.0");
   writeFileSync(join(destino, ".gitignore"), "rascunho");
   assert.equal(executar().error.name, "USAGE");
   assert.equal(readFileSync(join(destino, ".gitignore"), "utf8"), "rascunho");
   rmSync(join(destino, ".gitignore"));
   const resultado = executar();
   assert.equal(resultado.ok, true);
-  assert.equal(resultado.data.versao, "v0.2.0");
+  assert.equal(resultado.data.versao, "v0.3.0");
   assert.equal(
     readFileSync(join(destino, ".agents", "exemplo"), "utf8"),
     "skill",
