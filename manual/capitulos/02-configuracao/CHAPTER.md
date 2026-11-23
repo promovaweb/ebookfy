@@ -61,3 +61,11 @@ O TOML agrupa os dados da obra, os caminhos editoriais e a exportação em tabel
 A versão que `ebookfy --version` imprime identifica o aplicativo instalado. Já `book.version` identifica o manuscrito. Um livro com versão `1.0.0` pode ser compilado pelo CLI `0.1.1`. Para publicar uma revisão do conteúdo mantendo a edição anterior disponível, altere a versão do livro e confira os novos nomes em `ebookfy build --json`.
 
 Escreva os caminhos em relação à pasta do TOML. Cada texto editorial precisa existir e ter um título de nível 1. A lista exige pelo menos um capítulo e um formato. A ficha rejeita campos desconhecidos, entradas de capítulo repetidas e a repetição do mesmo formato. Ao corrigir um caminho, confira também a caixa das letras no nome do arquivo. Em Linux, `chapter.md` e `CHAPTER.md` são nomes distintos.
+
+## Escolher o arquivo certo
+
+Abra o TOML do livro que você quer editar. No repositório do framework, a raiz contém o exemplo **Meu primeiro ebook**. A pasta `manual/` contém outro projeto com ficha própria. Dentro de qualquer capítulo, `ebookfy info` mostra a obra encontrada.
+
+Para mudar a ordem de leitura, mova a tabela inteira de um capítulo no TOML. Para corrigir a legenda, abra o CHAPTER.md indicado por aquela tabela. Para trocar a capa digital, confira `files.cover`. Depois de editar, compile de novo para atualizar os arquivos de `output.directory`.
+
+As preferências de quem usa o terminal ficam em `~/.ebookfy/settings.json`. Consulte-as com `ebookfy config list`. A variável `EBOOKFY_HOME` permite usar outro perfil. Credenciais e chave pertencem ao perfil pessoal e ficam fora das pastas compartilhadas do livro.

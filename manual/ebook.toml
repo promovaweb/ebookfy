@@ -6,7 +6,7 @@ authors = ["Promovaweb"]
 publisher = "Promovaweb"
 rights = "© Promovaweb"
 identifier = "urn:promovaweb:manual-ebookfy"
-version = "0.3.1"
+version = "0.4.0"
 date = "2026-11-23"
 slug = "manual-ebookfy"
 
@@ -22,37 +22,37 @@ directory = "ebook"
 formats = ["pdf", "epub", "mobi"]
 
 [[chapters]]
-file = "01-primeira-edicao/CHAPTER.md"
+file = "capitulos/01-primeira-edicao/CHAPTER.md"
 
 [[chapters]]
-file = "02-configuracao/CHAPTER.md"
+file = "capitulos/02-configuracao/CHAPTER.md"
 
 [[chapters]]
-file = "03-capitulos/CHAPTER.md"
+file = "capitulos/03-capitulos/CHAPTER.md"
 
 [[chapters]]
-file = "04-migracao/CHAPTER.md"
+file = "capitulos/04-migracao/CHAPTER.md"
 
 [[chapters]]
-file = "05-exportacao/CHAPTER.md"
+file = "capitulos/05-exportacao/CHAPTER.md"
 
 [[chapters]]
-file = "06-skills/CHAPTER.md"
+file = "capitulos/06-skills/CHAPTER.md"
 
 [[chapters]]
-file = "07-terminal/CHAPTER.md"
+file = "capitulos/07-terminal/CHAPTER.md"
 
 [[chapters]]
-file = "08-comandos/CHAPTER.md"
+file = "capitulos/08-comandos/CHAPTER.md"
 
 [[chapters]]
-file = "09-agentes/CHAPTER.md"
+file = "capitulos/09-agentes/CHAPTER.md"
 
 [[chapters]]
-file = "10-preferencias/CHAPTER.md"
+file = "capitulos/10-preferencias/CHAPTER.md"
 
 [[chapters]]
-file = "11-erros/CHAPTER.md"
+file = "capitulos/11-erros/CHAPTER.md"
 
 [[chapters]]
-file = "12-referencia/CHAPTER.md"
+file = "capitulos/12-referencia/CHAPTER.md"

@@ -7,12 +7,12 @@
  * codes. The CLI section ends with the reference generated from the command
  * registry, so it never drifts from what the parser accepts.
  */
-import primeiraEdicao from "../../manual/01-primeira-edicao/CHAPTER.md" with { type: "text" };
-import ficha from "../../manual/02-configuracao/CHAPTER.md" with { type: "text" };
-import capitulos from "../../manual/03-capitulos/CHAPTER.md" with { type: "text" };
-import migracao from "../../manual/04-migracao/CHAPTER.md" with { type: "text" };
-import exportacao from "../../manual/05-exportacao/CHAPTER.md" with { type: "text" };
-import skillsEditoriais from "../../manual/06-skills/CHAPTER.md" with { type: "text" };
+import primeiraEdicao from "../../manual/capitulos/01-primeira-edicao/CHAPTER.md" with { type: "text" };
+import ficha from "../../manual/capitulos/02-configuracao/CHAPTER.md" with { type: "text" };
+import capitulos from "../../manual/capitulos/03-capitulos/CHAPTER.md" with { type: "text" };
+import migracao from "../../manual/capitulos/04-migracao/CHAPTER.md" with { type: "text" };
+import exportacao from "../../manual/capitulos/05-exportacao/CHAPTER.md" with { type: "text" };
+import skillsEditoriais from "../../manual/capitulos/06-skills/CHAPTER.md" with { type: "text" };
 import { SKILL_TOPICS } from "./topics.ts";
 export { SKILL_TOPICS } from "./topics.ts";
 import overview from "../../docs/README.md" with { type: "text" };

@@ -14,6 +14,6 @@ Use a versão de `VERSION` no pacote, no lockfile, no TOML do manual e no change
 
 ## Conferir a documentação e as capturas
 
-As páginas de produção em `manual/` alimentam o livro e o tópico `ebook` da documentação embutida. Rode `npm start -- --skill ebook` e confira as entradas na aba Docs com `npm start -- tui --tab docs`. As figuras da interface ficam em `manual/07-terminal/imagens/`, ao lado do capítulo que as utiliza.
+As páginas de produção em `manual/` alimentam o livro e o tópico `ebook` da documentação embutida. Rode `npm start -- --skill ebook` e confira as entradas na aba Docs com `npm start -- tui --tab docs`. As figuras da interface ficam em `manual/capitulos/07-terminal/imagens/`, ao lado do capítulo que as utiliza.
 
 Para atualizar as capturas, abra o exemplo da raiz na TUI com um perfil isolado em `EBOOKFY_HOME`. Capture a janela na aba Livro e novamente na aba Docs, com os títulos e o texto legíveis. Depois do build, confira a página ilustrada no PDF e as imagens incorporadas no EPUB. Ao mudar a edição do próprio manual, atualize também a imagem de capa digital com o título e a versão correntes.

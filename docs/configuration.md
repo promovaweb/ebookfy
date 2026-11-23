@@ -1,1 +1,1 @@
-../manual/10-preferencias/CHAPTER.md
+../manual/capitulos/10-preferencias/CHAPTER.md

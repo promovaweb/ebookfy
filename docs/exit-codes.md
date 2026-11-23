@@ -1,1 +1,1 @@
-../manual/11-erros/CHAPTER.md
+../manual/capitulos/11-erros/CHAPTER.md

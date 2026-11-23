@@ -92,6 +92,12 @@ Em um projeto com reading-order.txt, use a ordem explícita do guia. Para um ebo
 
 Transfira os metadados para o TOML e os recursos para as pastas de capítulo. Compare o texto e a sequência das novas saídas com a edição anterior.
 
+## Usar as referências e as checklists
+
+No starter kit, cada pasta em `.agents/skills/` contém um `SKILL.md` e um diretório `references/`. Abra primeiro o arquivo da etapa. A seção de referência indica quando recorrer ao exemplo ou à tabela de diagnóstico. Na checklist, marque somente as verificações que você realizou e anote o arquivo ou exemplar usado na prova.
+
+Por exemplo, ao receber uma fotografia para o segundo capítulo, use a etapa 05 para escolher o detalhe e testar a figura na página. A etapa 09 ajuda a relacionar aquele arquivo à atribuição recebida. Na etapa 13, leia a passagem no EPUB com a fonte ampliada e compare com a página do PDF. Se o texto estiver legível em apenas um formato, registre esse resultado e retorne à figura antes de distribuir.
+
 ## Conduzir uma revisão com o agente
 
 Suponha que o capítulo da oficina já tenha texto e uma figura. Abra o agente na cópia do livro e peça a revisão de um capítulo específico. Informe o resultado esperado e os arquivos que ele pode consultar. Este pedido é suficiente para iniciar uma leitura dirigida.

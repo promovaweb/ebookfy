@@ -1,1 +1,1 @@
-../manual/07-terminal/CHAPTER.md
+../manual/capitulos/07-terminal/CHAPTER.md

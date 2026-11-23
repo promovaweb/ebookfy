@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.0
+
+- As 15 skills editoriais ganharam roteiros de execução, referências portáteis com exemplos e checklists de entrega. O init usa o starter kit 0.2.0 com essas referências instaladas.
+- Exemplo e manual usam o mesmo arranjo de capítulos, materiais editoriais e saídas. O guia da ficha explica os caminhos e as configurações pessoais do CLI.
+
 ## 0.3.1
 
 - A raiz abre o livro ilustrado **Meu primeiro ebook**, o mesmo exemplo entregue pelo starter kit. O manual completo tem projeto próprio em `manual/` e pode ser compilado com `npm run manual`.

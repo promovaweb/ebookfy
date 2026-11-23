@@ -7,7 +7,7 @@ import { ExitCode } from "../../app/exit-codes.ts";
 import type { Command } from "../registry.ts";
 
 const repositorio = "https://github.com/promovaweb/ebookfy-starter-kit.git";
-const versao = "v0.1.0";
+const versao = "v0.2.0";
 const reserva = ".ebookfy-init";
 
 /** Aceita a pasta .git e o arquivo .git utilizado por worktrees e submódulos. */

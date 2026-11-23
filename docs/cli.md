@@ -1,1 +1,1 @@
-../manual/08-comandos/CHAPTER.md
+../manual/capitulos/08-comandos/CHAPTER.md
