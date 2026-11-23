@@ -6,7 +6,7 @@ authors = ["Promovaweb"]
 publisher = "Promovaweb"
 rights = "© Promovaweb"
 identifier = "urn:promovaweb:manual-ebookfy"
-version = "0.5.0"
+version = "0.5.1"
 date = "2026-11-23"
 slug = "manual-ebookfy"
 

@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.5.1
+
+- O livro de exemplo **Meu primeiro ebook** virou um guia completo de 22 páginas, em sete capítulos: preparar a edição, planejar, escrever, imagens e capa, textos editoriais, compilar e conferir, revisar e distribuir. Cada capítulo usa no próprio texto o recurso que explica, e as figuras são a capa e o sumário da própria edição.
+- O PDF, o EPUB e o MOBI do exemplo ficam em `ebook/`, com link no README, para ver o resultado antes de instalar.
+- Listas de tarefas (`- [ ]`) saem no PDF com a caixa na mesma linha do texto. Antes, o WeasyPrint desenhava cada caixa numa linha separada.
+- A capa digital do manual mostra a edição corrente.
+- O `init` usa o starter kit 0.3.1.
+
 ## 0.5.0
 
 - As 15 skills foram reescritas. Cada uma traz quando usar, o procedimento passo a passo, as regras do compilador que afetam a etapa, uma tabela de problemas frequentes, a entrega e uma checklist ampliada. São 26 referências com modelos preenchidos, todas conferidas num build real: briefing, ficha de apuração, roteiro de capítulo, Markdown aceito, capturas e legendas, especificações e provas de capa, registro de atribuição, passadas de revisão com comandos, prova dos formatos, diagnóstico do build, conferência da entrega e mapa de migração.

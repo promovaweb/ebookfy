@@ -31,7 +31,15 @@ test("ficha, formatos selecionados e diagnóstico de capítulo ausente", (t) => 
   // Títulos com id explícito do Pandoc aparecem sem o bloco de atributos.
   assert.deepEqual(
     info.chapters.map((c) => c.title),
-    ["Preparar a primeira edição", "Escrever um capítulo", "Compilar e conferir"],
+    [
+      "Preparar a primeira edição",
+      "Planejar o livro",
+      "Escrever um capítulo",
+      "Imagens e capa",
+      "Prefácio, créditos e autoria",
+      "Compilar e conferir",
+      "Revisar e distribuir",
+    ],
   );
   const toml = join(cwd, "ebook.toml");
   const fonte = readFileSync(toml, "utf8");

@@ -226,6 +226,28 @@ li {
   margin-bottom: 4px;
 }
 
+/* Lista de tarefas (`- [ ]`): o Pandoc gera label com input; o WeasyPrint
+   desenha o input como bloco, então a caixa vira um quadrado em linha própria. */
+ul.task-list {
+  padding-left: 0;
+  list-style: none;
+}
+
+ul.task-list input[type="checkbox"] {
+  display: none;
+}
+
+ul.task-list li::before {
+  content: "☐";
+  display: inline-block;
+  width: 1.4em;
+  color: var(--pdf-link);
+}
+
+ul.task-list li:has(input[checked])::before {
+  content: "☑";
+}
+
 a {
   color: var(--pdf-link);
 }

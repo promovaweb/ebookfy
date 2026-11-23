@@ -33,7 +33,7 @@ Na aba **Livro**, escolha uma opção com as setas e abra com Enter ou com um cl
 
 ![Menu da TUI com as quatro opções e o sumário do exemplo](manual/capitulos/07-terminal/imagens/tui-livro.png)
 
-No repositório do framework, o [livro de exemplo](ebook.toml) é **Meu primeiro ebook**, o mesmo que o `ebookfy init` instala. Os três capítulos mostram a ficha, a figura com legenda, tabela, código, nota de rodapé, links entre capítulos e a conferência da edição. Abra o [primeiro capítulo](capitulos/01-primeiro-capitulo/CHAPTER.md), edite um parágrafo e execute `ebookfy build` na raiz para ler sua edição.
+No repositório do framework, o [livro de exemplo](ebook.toml) é **Meu primeiro ebook**, o mesmo que o `ebookfy init` instala. É um guia curto, em sete capítulos, que usa no próprio texto cada recurso que explica: capa, sumário, prefácio, figuras com legenda, tabelas, código com realce, notas de rodapé, links entre capítulos, créditos e autoria. Para ver o resultado antes de instalar, abra o [PDF](ebook/primeiro-ebook-v0.1.0.pdf), o [EPUB](ebook/primeiro-ebook-v0.1.0.epub) ou o [MOBI](ebook/primeiro-ebook-v0.1.0.mobi) gerados pelo Ebookfy. Depois, abra o [primeiro capítulo](capitulos/01-primeiro-capitulo/CHAPTER.md), edite um parágrafo e execute `ebookfy build` na raiz para ler sua edição.
 
 ## Onde editar
 
@@ -55,7 +55,7 @@ As [15 skills numeradas](skills/) cobrem o livro da organização à distribuiç
 npx skills add promovaweb/ebookfy -a universal -a claude-code -a codex -a opencode -y
 ```
 
-Consulte o [manual editável](manual/capitulos/01-primeira-edicao/CHAPTER.md), a [documentação completa](docs/README.md) ou baixe o [PDF](manual/ebook/manual-ebookfy-v0.5.0.pdf), o [EPUB](manual/ebook/manual-ebookfy-v0.5.0.epub) e o [MOBI](manual/ebook/manual-ebookfy-v0.5.0.mobi). Em automações, use `ebookfy info --json`. A referência embutida está disponível com `ebookfy --skill`.
+Consulte o [manual editável](manual/capitulos/01-primeira-edicao/CHAPTER.md), a [documentação completa](docs/README.md) ou baixe o [PDF](manual/ebook/manual-ebookfy-v0.5.1.pdf), o [EPUB](manual/ebook/manual-ebookfy-v0.5.1.epub) e o [MOBI](manual/ebook/manual-ebookfy-v0.5.1.mobi). Em automações, use `ebookfy info --json`. A referência embutida está disponível com `ebookfy --skill`.
 
 ## Feito com
 
