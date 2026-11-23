@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.1
+
+- Revisa a explicação das preferências pessoais do terminal e atualiza os três formatos do manual.
+
 ## 0.4.0
 
 - As 15 skills editoriais ganharam roteiros de execução, referências portáteis com exemplos e checklists de entrega. O init usa o starter kit 0.2.0 com essas referências instaladas.

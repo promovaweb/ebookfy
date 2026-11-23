@@ -68,4 +68,4 @@ Abra o TOML do livro que você quer editar. No repositório do framework, a raiz
 
 Para mudar a ordem de leitura, mova a tabela inteira de um capítulo no TOML. Para corrigir a legenda, abra o CHAPTER.md indicado por aquela tabela. Para trocar a capa digital, confira `files.cover`. Depois de editar, compile de novo para atualizar os arquivos de `output.directory`.
 
-As preferências de quem usa o terminal ficam em `~/.ebookfy/settings.json`. Consulte-as com `ebookfy config list`. A variável `EBOOKFY_HOME` permite usar outro perfil. Credenciais e chave pertencem ao perfil pessoal e ficam fora das pastas compartilhadas do livro.
+As preferências pessoais do terminal ficam em `~/.ebookfy/settings.json`. Consulte-as com `ebookfy config list`. A variável `EBOOKFY_HOME` permite usar outro perfil. Credenciais e chave pertencem ao perfil pessoal e ficam fora das pastas compartilhadas do livro.

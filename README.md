@@ -53,7 +53,7 @@ As [15 skills numeradas](skills/) trazem instruções, referências de trabalho 
 npx skills add promovaweb/ebookfy -a universal -a claude-code -a codex -a opencode -y
 ```
 
-Consulte o [manual editável](manual/capitulos/01-primeira-edicao/CHAPTER.md), a [documentação completa](docs/README.md) ou baixe o [PDF](manual/ebook/manual-ebookfy-v0.4.0.pdf), o [EPUB](manual/ebook/manual-ebookfy-v0.4.0.epub) e o [MOBI](manual/ebook/manual-ebookfy-v0.4.0.mobi). Em automações, use `ebookfy info --json`. A referência embutida está disponível com `ebookfy --skill`.
+Consulte o [manual editável](manual/capitulos/01-primeira-edicao/CHAPTER.md), a [documentação completa](docs/README.md) ou baixe o [PDF](manual/ebook/manual-ebookfy-v0.4.1.pdf), o [EPUB](manual/ebook/manual-ebookfy-v0.4.1.epub) e o [MOBI](manual/ebook/manual-ebookfy-v0.4.1.mobi). Em automações, use `ebookfy info --json`. A referência embutida está disponível com `ebookfy --skill`.
 
 ## Feito com
 
