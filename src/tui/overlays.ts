@@ -273,8 +273,8 @@ export class Overlays {
           const paint = this.buttons(
             body,
             [
-              { key: "y", label: options.confirmLabel ?? "Confirm", danger: options.danger, run: () => answer(true) },
-              { key: "Esc", label: "Cancel", run: () => answer(false) },
+              { key: "y", label: options.confirmLabel ?? "Confirmar", danger: options.danger, run: () => answer(true) },
+              { key: "Esc", label: "Cancelar", run: () => answer(false) },
             ],
             () => focus,
           );
@@ -335,7 +335,7 @@ export class Overlays {
             close();
             resolve(undefined);
           };
-          this.buttons(body, [{ key: "Enter", label: "OK", run: submit }, { key: "Esc", label: "Cancel", run: cancel }], () => 0);
+          this.buttons(body, [{ key: "Enter", label: "OK", run: submit }, { key: "Esc", label: "Cancelar", run: cancel }], () => 0);
           render();
           return {
             onKey: (key) => {
@@ -464,7 +464,7 @@ export class Overlays {
           const list = this.list(body, visible, pick);
           list.setItems(options.items.map((text) => ({ text })));
           for (let i = 0; i < (options.initial ?? 0); i++) list.key({ name: "down" } as KeyEvent, false);
-          body.add(new TextRenderable(this.renderer, { content: "↑↓ move · Enter choose · Esc cancel", fg: this.theme.textDim, wrapMode: "none", selectable: false }));
+          body.add(new TextRenderable(this.renderer, { content: "↑↓ escolher · Enter abrir · Esc voltar", fg: this.theme.textDim, wrapMode: "none", selectable: false }));
           return {
             onKey: (key) => {
               if (key.name === "escape") {
@@ -507,7 +507,7 @@ export class Overlays {
           field.content = `${this.icons.select || ">"} ${query}▏`;
           filtered = entries.filter((entry) => matches(query, entry.label));
           list.setItems(filtered.map((entry) => ({ text: withIcon(this.icons, entry.icon ?? "select", entry.label), hint: entry.hint })));
-          empty.content = filtered.length ? `${filtered.length} command(s) · Enter run · Esc close` : "No command matches";
+          empty.content = filtered.length ? `${filtered.length} comando(s) · Enter executar · Esc voltar` : "Nenhum comando encontrado";
         };
         update();
         return {

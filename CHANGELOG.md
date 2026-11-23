@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.0
+
+- A aba Livro reúne ficha, capítulos, arquivos e guia em um menu colorido com mouse, setas e atalhos. A interface adapta o sumário à largura do terminal.
+- A consulta de arquivos mostra os caminhos e a presença dos formatos configurados. O manual inclui capturas da interface e instruções de navegação.
+
 ## 0.2.0
 
 - Adiciona `ebookfy init` para iniciar um livro em um repositório vazio a partir do starter kit privado, com o TOML, o capítulo ilustrado e as 15 skills.

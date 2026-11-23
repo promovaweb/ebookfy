@@ -15,6 +15,9 @@ import { SKILL_TOPICS, skillText } from "../../skill/index.ts";
 import { listPanel, stateView, scrollPanel } from "../components.ts";
 import type { Screen, ScreenContext } from "../screen.ts";
 
+const rotulos = { ebook: "Produzir um ebook", cli: "Linha de comando", tui: "Interface do terminal", mcp: "Conectar agentes", config: "Configuração local", "exit-codes": "Códigos de saída", reference: "Referência completa" } as const;
+const nomes = SKILL_TOPICS.map(topico => rotulos[topico]);
+
 /** Joins source soft wraps while retaining Markdown block and list boundaries. */
 export function normalizeMarkdown(source: string): string {
   const result: string[] = [];
@@ -58,8 +61,8 @@ export function createDocsScreen(): Screen {
   /** Opens the topic chooser, also used when compact layout hides the index. */
   async function choose(ctx: ScreenContext): Promise<void> {
     const selected = await ctx.choose({
-      title: "Documentation topic",
-      items: SKILL_TOPICS,
+      title: "Escolher assunto",
+      items: nomes,
       initial: topic,
     });
     if (selected !== undefined) await loadTopic?.(selected);
@@ -81,19 +84,19 @@ export function createDocsScreen(): Screen {
     id: "docs",
     title: "Docs",
     icon: "docs",
-    description: "Read the embedded documentation",
+    description: "Consultar o manual no terminal",
     actions: [
-      { keys: ["t"], description: "choose topic", icon: "docs", run: choose },
+      { keys: ["t"], description: "assuntos", icon: "docs", run: choose },
       {
         keys: ["up", "k"],
-        description: "scroll up",
+        description: "rolar para cima",
         icon: "select",
         hidden: true,
         run: () => scroll(-1),
       },
       {
         keys: ["down", "j"],
-        description: "scroll down",
+        description: "rolar para baixo",
         icon: "select",
         hidden: true,
         run: () => scroll(1),
@@ -190,7 +193,7 @@ export function createDocsScreen(): Screen {
         host.add(
           stateView(renderer, theme, icons, {
             kind: "loading",
-            title: "Loading documentation",
+            title: "Carregando o manual",
           }),
         );
         ctx.status(`docs: ${selected}`);
@@ -202,7 +205,7 @@ export function createDocsScreen(): Screen {
 
           const content = normalizeMarkdown(skillText(commands, selected)).replace(/^# [^\n]+\n+/, "");
           clear();
-          const card = scrollPanel(renderer, theme, { title: selected, active: true });
+          const card = scrollPanel(renderer, theme, { title: rotulos[selected], active: true });
           document = card.body;
           document.add(
             new MarkdownRenderable(renderer, {
@@ -219,14 +222,14 @@ export function createDocsScreen(): Screen {
 
           clear();
           ctx.notify(
-            error instanceof Error ? error.message : "Unable to load documentation",
+            error instanceof Error ? error.message : "Falha ao carregar o manual",
             "error",
           );
           host.add(
             stateView(renderer, theme, icons, {
               kind: "error",
-              title: "Unable to load documentation",
-              action: { key: "t", label: "choose topic", onPress: chooseTopic },
+              title: "Falha ao carregar o manual",
+              action: { key: "t", label: "assuntos", onPress: chooseTopic },
             }),
           );
         }
@@ -240,8 +243,8 @@ export function createDocsScreen(): Screen {
       topicIndex = undefined;
       if (ctx.layout() !== "compact") {
         const index = listPanel(renderer, theme, {
-          title: "Topics",
-          items: [...SKILL_TOPICS],
+          title: "Assuntos",
+          items: nomes,
           onSelect: selectTopic,
         });
         topicIndex = index;

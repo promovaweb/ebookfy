@@ -150,16 +150,16 @@ export async function mountTui(renderer: CliRenderer, options: TuiOptions = {}, 
   });
 
   // Header: brand, version, platform (the platform hides in compact).
-  const header = new BoxRenderable(renderer, { height: 1, flexDirection: "row", paddingLeft: initialSpace.pageX, paddingRight: initialSpace.pageX, gap: controlSpacing.gap });
+  const header = new BoxRenderable(renderer, { backgroundColor: theme.headerBackground, height: 1, flexDirection: "row", paddingLeft: initialSpace.pageX, paddingRight: initialSpace.pageX, gap: controlSpacing.gap });
   const brand = new BoxRenderable(renderer, { flexDirection: "row", flexShrink: 0 });
-  brand.add(new TextRenderable(renderer, { content: `${glyphs.block} `, fg: theme.accent, selectable: false }));
-  brand.add(new TextRenderable(renderer, { content: manifest.title, fg: theme.textStrong, attributes: TextAttributes.BOLD }));
-  brand.add(new TextRenderable(renderer, { content: `  v${manifest.version}`, fg: theme.textDim }));
+  brand.add(new TextRenderable(renderer, { content: `${glyphs.block} `, fg: theme.headerText, selectable: false }));
+  brand.add(new TextRenderable(renderer, { content: manifest.title + "   Produção de ebooks", fg: theme.headerText, attributes: TextAttributes.BOLD }));
+  brand.add(new TextRenderable(renderer, { content: `  v${manifest.version}`, fg: theme.headerText }));
   header.add(brand);
   header.add(new BoxRenderable(renderer, { flexGrow: 1 }));
   const platform = new TextRenderable(renderer, {
     content: `${process.platform}-${process.arch} · Bun ${Bun.version}`,
-    fg: theme.textDim,
+    fg: theme.headerText,
     flexShrink: 0,
     wrapMode: "none",
   });
@@ -207,7 +207,7 @@ export async function mountTui(renderer: CliRenderer, options: TuiOptions = {}, 
   const tooSmall = new BoxRenderable(renderer, { flexGrow: 1, alignItems: "center", justifyContent: "center", flexDirection: "column" });
   const tooSmallText = new TextRenderable(renderer, { content: "", fg: theme.warn, selectable: false });
   tooSmall.add(tooSmallText);
-  tooSmall.add(new TextRenderable(renderer, { content: "Enlarge the window or press q to quit.", fg: theme.textDim, selectable: false }));
+  tooSmall.add(new TextRenderable(renderer, { content: "Amplie o terminal ou pressione q para sair.", fg: theme.textDim, selectable: false }));
 
   const contentGap = new BoxRenderable(renderer, { height: initialSpace.pageY, flexShrink: 0 });
   app.add(contentGap);
@@ -218,7 +218,7 @@ export async function mountTui(renderer: CliRenderer, options: TuiOptions = {}, 
   let barItems = new BoxRenderable(renderer, { flexDirection: "row", gap: controlSpacing.gap, flexGrow: 1, flexShrink: 1, minWidth: 0 });
   const paletteHint = new BoxRenderable(renderer, { flexDirection: "row", flexShrink: 0, width: 12 });
   paletteHint.add(new TextRenderable(renderer, { content: "^K", fg: theme.accent, attributes: TextAttributes.BOLD, selectable: false }));
-  const paletteLabel = new TextRenderable(renderer, { content: " commands", fg: theme.textDim, selectable: false });
+  const paletteLabel = new TextRenderable(renderer, { content: " comandos", fg: theme.textDim, selectable: false });
   paletteHint.add(paletteLabel);
   clickable(renderer, paletteHint, {
     onClick: () => openPalette(),
@@ -290,8 +290,8 @@ export async function mountTui(renderer: CliRenderer, options: TuiOptions = {}, 
 
   /** Global commands, shown after the screen actions. */
   const globalActions: ScreenAction[] = [
-    { keys: ["?"], description: "help", icon: "help", run: () => openHelp() },
-    { keys: ["q", "escape"], description: "quit", icon: "quit", run: () => quit() },
+    { keys: ["?"], description: "ajuda", icon: "help", run: () => openHelp() },
+    { keys: ["q", "escape"], description: "sair", icon: "quit", run: () => quit() },
   ];
 
   /** Actions of the active screen, legacy key hints included as display-only entries. */
@@ -319,7 +319,8 @@ export async function mountTui(renderer: CliRenderer, options: TuiOptions = {}, 
       const text = `${number}${title}`;
       label.content = text;
       indicator.content = selected ? "━".repeat(Bun.stringWidth(text)) : "";
-      label.fg = selected ? theme.accent : index === hovered ? theme.text : theme.textDim;
+      label.bg = selected ? theme.keyBackground : theme.background;
+      label.fg = selected ? theme.keyText : index === hovered ? theme.text : theme.textDim;
       label.attributes = selected ? TextAttributes.BOLD : TextAttributes.NONE;
       item.backgroundColor = theme.background;
     }
@@ -447,7 +448,7 @@ export async function mountTui(renderer: CliRenderer, options: TuiOptions = {}, 
       }
     }
     screens.forEach((target, index) => {
-      if (index !== activeIndex) entries.push({ label: `Go to ${target.title}`, hint: index < 9 ? String(index + 1) : undefined, icon: target.icon, run: () => show(index) });
+      if (index !== activeIndex) entries.push({ label: `Abrir ${target.title}`, hint: index < 9 ? String(index + 1) : undefined, icon: target.icon, run: () => show(index) });
     });
     screens.forEach((target, index) => {
       if (index === activeIndex) return;
@@ -462,9 +463,9 @@ export async function mountTui(renderer: CliRenderer, options: TuiOptions = {}, 
         });
       }
     });
-    entries.push({ label: "Reload this screen", icon: "refresh", run: () => remount() });
-    entries.push({ label: "Help: keys and mouse", hint: "?", icon: "help", run: () => openHelp() });
-    entries.push({ label: "Quit", hint: "q", icon: "quit", run: () => quit() });
+    entries.push({ label: "Atualizar esta tela", icon: "refresh", run: () => remount() });
+    entries.push({ label: "Ajuda de teclado e mouse", hint: "?", icon: "help", run: () => openHelp() });
+    entries.push({ label: "Sair", hint: "q", icon: "quit", run: () => quit() });
     overlays.palette(entries);
   };
 
@@ -481,20 +482,20 @@ export async function mountTui(renderer: CliRenderer, options: TuiOptions = {}, 
     sections.push({
       title: "Global",
       rows: [
-        { key: "Ctrl+K  :", description: "command palette", icon: "keyboard", run: () => openPalette() },
-        { key: "←  →  [  ]", description: "previous / next tab", icon: "tabs", run: () => step(1) },
-        { key: `1 … ${Math.min(9, screens.length)}`, description: "go to the tab with that number" },
-        { key: "Tab  Shift+Tab", description: "next / previous panel" },
-        { key: "Esc", description: "close a dialog; quit when none is open", icon: "close" },
-        { key: "q  Ctrl+C", description: "quit", icon: "quit", run: () => quit() },
+        { key: "Ctrl+K  :", description: "menu de comandos", icon: "keyboard", run: () => openPalette() },
+        { key: "←  →  [  ]", description: "aba anterior ou seguinte", icon: "tabs", run: () => step(1) },
+        { key: `1 … ${Math.min(9, screens.length)}`, description: "abrir aba pelo número" },
+        { key: "Tab  Shift+Tab", description: "alternar painel" },
+        { key: "Esc", description: "voltar ou fechar o diálogo", icon: "close" },
+        { key: "q  Ctrl+C", description: "sair", icon: "quit", run: () => quit() },
       ],
     });
     sections.push({
       title: "Mouse",
       rows: [
-        { key: "click", description: "tab, bar item, button, row, dialog button" },
-        { key: "wheel", description: "scroll a list; over the tabs, switch tab" },
-        { key: "Shift+drag", description: "select text in most terminals" },
+        { key: "click", description: "abrir aba, item ou botão" },
+        { key: "wheel", description: "rolar lista ou alternar aba" },
+        { key: "Shift+drag", description: "selecionar texto" },
       ],
     });
     overlays.help(sections);
@@ -527,7 +528,7 @@ export async function mountTui(renderer: CliRenderer, options: TuiOptions = {}, 
         if (node) content.add(node);
       }
     }
-    tooSmallText.content = withIcon(icons, "warn", `Terminal too small: ${renderer.width}×${renderer.height}, needs ${MIN_WIDTH}×${MIN_HEIGHT}.`);
+    tooSmallText.content = withIcon(icons, "warn", `Terminal pequeno: ${renderer.width}×${renderer.height}, mínimo ${MIN_WIDTH}×${MIN_HEIGHT}.`);
     if (nextLayout !== currentLayout) {
       currentLayout = nextLayout;
       for (const screen of screens) if (screen !== active() && mounted.has(screen.id)) stale.add(screen.id);
@@ -580,7 +581,7 @@ export async function mountTui(renderer: CliRenderer, options: TuiOptions = {}, 
               }
               restartWatchers();
               remount();
-              context.notify("Updated from disk", "info");
+              context.notify("Dados atualizados", "info");
             };
             watchTimer = setTimeout(update, 250);
           }),

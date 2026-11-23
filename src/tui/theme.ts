@@ -46,6 +46,8 @@ export interface Theme {
   error: ColorInput;
   barBackground: ColorInput;
   barText: ColorInput;
+  headerBackground: ColorInput;
+  headerText: ColorInput;
   keyBackground: ColorInput;
   keyText: ColorInput;
 }
@@ -74,23 +76,25 @@ export const ANSI = {
 export const themes: Record<"night" | "day", Theme> = {
   night: {
     name: "night",
-    background: "#1a1b26",
-    surface: "#1f2335",
-    surfaceHigh: "#24283b",
-    border: "#3b4261",
-    borderActive: "#7aa2f7",
-    text: "#c0caf5",
-    textDim: "#565f89",
-    textStrong: "#e0e6ff",
-    accent: "#7aa2f7",
-    accentSecondary: "#bb9af7",
+    background: "#000A0E",
+    surface: "#001117",
+    surfaceHigh: "#03212A",
+    border: "#5F7D8C",
+    borderActive: "#5EEDE1",
+    text: "#F2F8F9",
+    textDim: "#B2C6CE",
+    textStrong: "#F2F8F9",
+    accent: "#5EEDE1",
+    accentSecondary: "#C4B5FD",
     ok: "#9ece6a",
-    warn: "#e0af68",
+    warn: "#FCD34D",
     error: "#f7768e",
-    barBackground: "#16161e",
-    barText: "#a9b1d6",
-    keyBackground: "#3d59a1",
-    keyText: "#ffffff",
+    barBackground: "#001117",
+    barText: "#B2C6CE",
+    headerBackground: "#6D28D9",
+    headerText: "#FFFFFF",
+    keyBackground: "#5EEDE1",
+    keyText: "#001117",
   },
   day: {
     name: "day",
@@ -100,16 +104,18 @@ export const themes: Record<"night" | "day", Theme> = {
     border: "#a8aecb",
     borderActive: "#2e7de9",
     text: "#3760bf",
-    textDim: "#848cb5",
+    textDim: "#46506A",
     textStrong: "#1b2a5e",
     accent: "#2e7de9",
-    accentSecondary: "#9854f1",
-    ok: "#587539",
-    warn: "#8c6c3e",
+    accentSecondary: "#64349A",
+    ok: "#365918",
+    warn: "#734C13",
     error: "#f52a65",
     barBackground: "#c4c8da",
     barText: "#3760bf",
-    keyBackground: "#2e7de9",
+    headerBackground: "#512A88",
+    headerText: "#FFFFFF",
+    keyBackground: "#234CAB",
     keyText: "#ffffff",
   },
 };
@@ -265,6 +271,8 @@ export function terminalTheme(colors?: TerminalColors | null): Theme {
     error: ref(slots.error),
     barBackground: RGBA.defaultBackground(),
     barText: ref(slots.textDim),
+    headerBackground: ref(slots.accent),
+    headerText: ref(slots.keyText),
     keyBackground: ref(slots.accent),
     keyText: ref(slots.keyText),
   };

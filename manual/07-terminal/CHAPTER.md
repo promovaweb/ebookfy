@@ -1,10 +1,19 @@
 # Usar a interface de terminal
 
-Abra um terminal na pasta do livro ou dentro de um capítulo e execute `ebookfy`. Para abrir diretamente a ficha quando sua preferência inicial aponta para outra aba, use `ebookfy tui --tab overview`. O aplicativo lê o TOML do projeto e os títulos dos arquivos de capítulo.
+Abra um terminal na pasta do livro ou dentro de um capítulo e execute `ebookfy`. Para abrir diretamente o menu do livro quando sua preferência inicial aponta para outra aba, use `ebookfy tui --tab overview`. O aplicativo lê o TOML do projeto e os títulos dos arquivos de capítulo.
 
-![Ficha do Manual do Ebookfy com autoria, edição, três formatos e os doze capítulos na ordem configurada](imagens/tui-livro.png)
+![Menu do livro ao lado do sumário do Manual do Ebookfy](imagens/tui-livro.png)
 
-Na captura, a aba **Livro** está selecionada. A primeira linha do terminal identifica o aplicativo e seu runtime. Dentro do quadro, **Edição** pertence ao livro. A lista numerada reproduz a ordem declarada em `[[chapters]]`, e o rodapé informa a quantidade de capítulos carregados.
+Use as setas para cima e para baixo para escolher uma opção. O marcador `>` indica a seleção. Pressione Enter ou clique no nome para abrir. Em terminais com 80 colunas ou mais, o sumário aparece ao lado do menu. Em uma janela mais estreita, abra **Capítulos** para consultar a mesma lista.
+
+| Opção | Tecla | O que você encontra |
+| --- | --- | --- |
+| Ficha editorial | `f` | Autoria, editora, edição, data, idioma, identificador e descrição do livro aberto. |
+| Capítulos | `c` | Títulos na ordem de `[[chapters]]` e caminho de cada arquivo Markdown para edição. |
+| Arquivos de saída | `a` | Formatos da edição e caminho de cada arquivo. **A gerar** indica que o arquivo ainda falta. **Disponível** indica que ele existe na pasta configurada. |
+| Guia do Ebookfy | `g` | Documentação embutida e índice de assuntos na aba Docs. |
+
+Nas três consultas do livro, pressione Esc para voltar ao menu. Para verificar uma exportação, pressione `a`, execute `ebookfy build` em outro terminal e pressione `r`. Um arquivo disponível pode pertencer a uma compilação anterior. Gere a edição novamente depois de editar o manuscrito.
 
 ## Conferir uma alteração durante a escrita
 
