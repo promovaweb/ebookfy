@@ -1,0 +1,1 @@
+../manual/07-terminal/CHAPTER.md
