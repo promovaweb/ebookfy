@@ -15,11 +15,12 @@ ebookfy --version
 
 ## Primeiro livro
 
-Use o template privado com acesso ao repositório da organização. A primeira execução pode usar o livro de exemplo como está.
+Em um repositório vazio, execute `ebookfy init`. Para começar em uma pasta nova, siga o exemplo abaixo. O Git precisa ter acesso ao [starter kit privado](https://github.com/promovaweb/ebookfy-starter-kit). O comando copia a ficha, o capítulo ilustrado, os materiais editoriais e as skills já instaladas.
 
 ```bash
-gh repo clone promovaweb/ebookfy-starter-kit meu-livro
+git init meu-livro
 cd meu-livro
+ebookfy init
 ebookfy info
 ebookfy
 ebookfy build
@@ -37,7 +38,7 @@ O starter kit já traz as skills numeradas. Para instalá-las em outro projeto, 
 npx skills add promovaweb/ebookfy -a universal -a claude-code -a codex -a opencode -y
 ```
 
-Consulte o [manual editável](manual/01-primeira-edicao/CHAPTER.md), a [documentação completa](docs/README.md) ou baixe o [PDF](ebook/manual-ebookfy-v0.1.1.pdf), o [EPUB](ebook/manual-ebookfy-v0.1.1.epub) e o [MOBI](ebook/manual-ebookfy-v0.1.1.mobi). Em automações, use `ebookfy info --json`. A referência embutida está disponível com `ebookfy --skill`.
+Consulte o [manual editável](manual/01-primeira-edicao/CHAPTER.md), a [documentação completa](docs/README.md) ou baixe o [PDF](ebook/manual-ebookfy-v0.2.0.pdf), o [EPUB](ebook/manual-ebookfy-v0.2.0.epub) e o [MOBI](ebook/manual-ebookfy-v0.2.0.mobi). Em automações, use `ebookfy info --json`. A referência embutida está disponível com `ebookfy --skill`.
 
 ## Feito com
 

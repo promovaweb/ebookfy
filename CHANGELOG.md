@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.0
+
+- Adiciona `ebookfy init` para iniciar um livro em um repositório vazio a partir do starter kit privado, com o TOML, o capítulo ilustrado e as 15 skills.
+
 ## 0.1.1
 
 - Manual ampliado com ficha TOML completa, capítulo ilustrado, migração, diagnóstico e captura da TUI.

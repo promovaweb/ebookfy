@@ -6,6 +6,7 @@
  * display order in `--help` and in the OpenCLI description.
  */
 import { info, build } from "./commands/book.ts";
+import { init } from "./commands/init.ts";
 import { manifest } from "../app/manifest.ts";
 import { aboutCommand } from "./commands/about.ts";
 import { configCommand } from "./commands/config.ts";
@@ -20,7 +21,7 @@ import type { Command } from "./registry.ts";
 export const root: Command = {
   name: manifest.bin,
   description: manifest.description,
-  subcommands: [info, build, tuiCommand, aboutCommand, configCommand, credentialsCommand, mcpCommand, createSkillCommand(() => root), doctorCommand, createCompletionCommand(() => root)],
+  subcommands: [init, info, build, tuiCommand, aboutCommand, configCommand, credentialsCommand, mcpCommand, createSkillCommand(() => root), doctorCommand, createCompletionCommand(() => root)],
   examples: [
     `${manifest.bin}`,
     `${manifest.bin} about --json`,

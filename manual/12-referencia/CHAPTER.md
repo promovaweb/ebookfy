@@ -2,6 +2,10 @@
 
 Execute os comandos do livro dentro do projeto. Os comandos de preferências e diagnóstico também podem ser usados fora dele. Para obter a sintaxe exata da instalação disponível, acrescente `--help` ao comando ou subcomando. A marcação `<campo>` neste capítulo indica um argumento obrigatório e `[campo]` indica um argumento opcional.
 
+## Iniciar o projeto
+
+Execute `ebookfy init` na pasta vazia do livro. A operação usa o Git para obter o starter kit privado e aceita um repositório que já contém a entrada `.git`. Com `ebookfy init --json`, os campos `data.diretorio`, `data.template`, `data.versao` e `data.entradas` registram o destino, a origem, a tag do modelo e as entradas instaladas na raiz. Para conferir o acesso antes de iniciar, execute `git ls-remote https://github.com/promovaweb/ebookfy-starter-kit.git refs/tags/v0.1.0`.
+
 ## Consultar e compilar
 
 | Comando | Entrada | Resultado |
