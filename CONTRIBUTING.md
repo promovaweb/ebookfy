@@ -4,7 +4,7 @@ Converse com a equipe pelo [Discord](https://promovaweb.com/discord). Use Node.j
 
 ## Desenvolvimento
 
-Execute `npm ci`, `npm run typecheck` e `npm test`. Use `npm start -- info` para consultar o próprio manual e `npm run manual` para gerar os três arquivos. Os testes usam Pandoc, WeasyPrint e Calibre. As fontes do manual ficam em `manual/`. A pasta `docs/` referencia os capítulos técnicos também embutidos no CLI.
+Execute `npm ci`, `npm run typecheck` e `npm test`. Use `npm start -- info` para consultar o livro de exemplo da raiz e `npm run manual` para gerar os três formatos do manual em `manual/ebook/`. Os testes usam Pandoc, WeasyPrint e Calibre. As fontes do manual ficam em `manual/`. A pasta `docs/` referencia os capítulos técnicos também embutidos no CLI.
 
 Atualize a validação de `src/book/project.ts` e o capítulo de configuração juntos. O compilador usa o kit A4 de `print/`. Registre cada novo comando no registro do Termfy para expô-lo no help, OpenCLI e documentação embutida. Ao atualizar a lista de comandos, revise o apêndice de referência do manual.
 
@@ -16,4 +16,4 @@ Use a versão de `VERSION` no pacote, no lockfile, no TOML do manual e no change
 
 As páginas de produção em `manual/` alimentam o livro e o tópico `ebook` da documentação embutida. Rode `npm start -- --skill ebook` e confira as entradas na aba Docs com `npm start -- tui --tab docs`. As figuras da interface ficam em `manual/07-terminal/imagens/`, ao lado do capítulo que as utiliza.
 
-Para atualizar as capturas, abra o próprio manual na TUI com um perfil isolado em `EBOOKFY_HOME`. Capture a janela na aba Livro e novamente na aba Docs, com os títulos e o texto legíveis. Depois do build, confira a página ilustrada no PDF e as imagens incorporadas no EPUB. Ao mudar a edição do próprio manual, atualize também a imagem de capa digital com o título e a versão correntes.
+Para atualizar as capturas, abra o exemplo da raiz na TUI com um perfil isolado em `EBOOKFY_HOME`. Capture a janela na aba Livro e novamente na aba Docs, com os títulos e o texto legíveis. Depois do build, confira a página ilustrada no PDF e as imagens incorporadas no EPUB. Ao mudar a edição do próprio manual, atualize também a imagem de capa digital com o título e a versão correntes.

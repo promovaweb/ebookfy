@@ -1,14 +1,14 @@
 [book]
-title = "Manual do Ebookfy"
-description = "Da primeira edição à referência de configuração, comandos e skills."
+title = "Meu primeiro ebook"
+description = "Um projeto editável para montar e exportar a primeira edição."
 language = "pt-BR"
 authors = ["Promovaweb"]
 publisher = "Promovaweb"
 rights = "© Promovaweb"
-identifier = "urn:promovaweb:manual-ebookfy"
-version = "0.3.0"
+identifier = "urn:promovaweb:primeiro-ebook"
+version = "0.1.0"
 date = "2026-11-23"
-slug = "manual-ebookfy"
+slug = "primeiro-ebook"
 
 [files]
 cover = "editorial/capa.png"
@@ -22,37 +22,4 @@ directory = "ebook"
 formats = ["pdf", "epub", "mobi"]
 
 [[chapters]]
-file = "manual/01-primeira-edicao/CHAPTER.md"
-
-[[chapters]]
-file = "manual/02-configuracao/CHAPTER.md"
-
-[[chapters]]
-file = "manual/03-capitulos/CHAPTER.md"
-
-[[chapters]]
-file = "manual/04-migracao/CHAPTER.md"
-
-[[chapters]]
-file = "manual/05-exportacao/CHAPTER.md"
-
-[[chapters]]
-file = "manual/06-skills/CHAPTER.md"
-
-[[chapters]]
-file = "manual/07-terminal/CHAPTER.md"
-
-[[chapters]]
-file = "manual/08-comandos/CHAPTER.md"
-
-[[chapters]]
-file = "manual/09-agentes/CHAPTER.md"
-
-[[chapters]]
-file = "manual/10-preferencias/CHAPTER.md"
-
-[[chapters]]
-file = "manual/11-erros/CHAPTER.md"
-
-[[chapters]]
-file = "manual/12-referencia/CHAPTER.md"
+file = "capitulos/01-primeiro-capitulo/CHAPTER.md"

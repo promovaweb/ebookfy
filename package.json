@@ -1,6 +1,6 @@
 {
   "name": "@promovaweb/ebookfy",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Organize capítulos e exporte seu ebook em PDF, EPUB e MOBI.",
   "type": "module",
   "private": false,
@@ -21,7 +21,7 @@
     "start": "bun src/main.ts",
     "typecheck": "tsc --noEmit",
     "test": "node --test tests/*.test.mjs",
-    "manual": "bun src/main.ts build",
+    "manual": "cd manual && bun ../src/main.ts build",
     "build": "bun build ./src/main.ts --target=bun --packages=external --outdir dist/bin",
     "prepack": "npm run build"
   },
@@ -56,10 +56,10 @@
     "@oven/bun-darwin-aarch64": "1.4.4",
     "@oven/bun-darwin-x64": "1.4.4",
     "@oven/bun-linux-aarch64": "1.4.4",
-    "@oven/bun-linux-x64": "1.4.4",
     "@oven/bun-linux-aarch64-musl": "1.4.4",
+    "@oven/bun-linux-x64": "1.4.4",
     "@oven/bun-linux-x64-musl": "1.4.4",
-    "@oven/bun-windows-x64": "1.4.4",
-    "@oven/bun-windows-aarch64": "1.4.4"
+    "@oven/bun-windows-aarch64": "1.4.4",
+    "@oven/bun-windows-x64": "1.4.4"
   }
 }

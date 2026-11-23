@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.1
+
+- A raiz abre o livro ilustrado **Meu primeiro ebook**, o mesmo exemplo entregue pelo starter kit. O manual completo tem projeto próprio em `manual/` e pode ser compilado com `npm run manual`.
+
 ## 0.3.0
 
 - A aba Livro reúne ficha, capítulos, arquivos e guia em um menu colorido com mouse, setas e atalhos. A interface adapta o sumário à largura do terminal.

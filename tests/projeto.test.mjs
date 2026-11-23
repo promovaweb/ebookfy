@@ -18,7 +18,7 @@ const cli = new URL("src/main.ts", raiz).pathname;
 test("ficha, formatos selecionados e diagnóstico de capítulo ausente", (t) => {
   const cwd = mkdtempSync(join(tmpdir(), "ebookfy-teste-"));
   t.after(() => rmSync(cwd, { recursive: true, force: true }));
-  for (const nome of ["manual", "editorial", "brand", "ebook.toml"]) {
+  for (const nome of ["capitulos", "editorial", "brand", "ebook.toml"]) {
     cpSync(new URL(nome, raiz), join(cwd, nome), { recursive: true });
   }
   const rodar = (...args) =>
@@ -26,21 +26,14 @@ test("ficha, formatos selecionados e diagnóstico de capítulo ausente", (t) => 
       execFileSync("bun", [cli, ...args, "--json"], { cwd, encoding: "utf8" }),
     ).data;
   const info = rodar("info");
-  assert.equal(info.title, "Manual do Ebookfy");
-  assert.equal(
-    info.version,
-    readFileSync(new URL("VERSION", raiz), "utf8").trim(),
-  );
-  assert.equal(
-    info.version,
-    JSON.parse(readFileSync(new URL("package.json", raiz))).version,
-  );
+  assert.equal(info.title, "Meu primeiro ebook");
+  assert.equal(info.version, "0.1.0");
   const toml = join(cwd, "ebook.toml");
   const fonte = readFileSync(toml, "utf8");
   writeFileSync(toml, fonte.replace('["pdf", "epub", "mobi"]', '["mobi"]'));
   const { arquivos } = rodar("build");
   assert.deepEqual(arquivos, [
-    "ebook/manual-ebookfy-v" + info.version + ".mobi",
+    "ebook/primeiro-ebook-v" + info.version + ".mobi",
   ]);
   assert.equal(
     readFileSync(join(cwd, arquivos[0])).toString("ascii", 60, 68),
@@ -61,10 +54,10 @@ test("ficha, formatos selecionados e diagnóstico de capítulo ausente", (t) => 
 test("consulta a ficha dentro do capítulo e isola livros e repositórios vizinhos", (t) => {
   const cwd = mkdtempSync(join(tmpdir(), "ebookfy-subpasta-"));
   t.after(() => rmSync(cwd, { recursive: true, force: true }));
-  for (const nome of ["manual", "editorial", "brand", "ebook.toml"]) {
+  for (const nome of ["capitulos", "editorial", "brand", "ebook.toml"]) {
     cpSync(new URL(nome, raiz), join(cwd, nome), { recursive: true });
   }
-  const pasta = join(cwd, "manual", "01-primeira-edicao");
+  const pasta = join(cwd, "capitulos", "01-primeiro-capitulo");
   writeFileSync(
     join(pasta, "CHAPTER.md"),
     "~~~bash\n# Comentário\n~~~\n\n# **Título** do capítulo ###\n",

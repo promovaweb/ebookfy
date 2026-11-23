@@ -2,7 +2,7 @@
 
 Abra um terminal na pasta do livro ou dentro de um capítulo e execute `ebookfy`. Para abrir diretamente o menu do livro quando sua preferência inicial aponta para outra aba, use `ebookfy tui --tab overview`. O aplicativo lê o TOML do projeto e os títulos dos arquivos de capítulo.
 
-![Menu do livro ao lado do sumário do Manual do Ebookfy](imagens/tui-livro.png)
+![Menu do livro ao lado do sumário de Meu primeiro ebook](imagens/tui-livro.png)
 
 Use as setas para cima e para baixo para escolher uma opção. O marcador `>` indica a seleção. Pressione Enter ou clique no nome para abrir. Em terminais com 80 colunas ou mais, o sumário aparece ao lado do menu. Em uma janela mais estreita, abra **Capítulos** para consultar a mesma lista.
 

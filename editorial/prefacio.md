@@ -1,3 +1,3 @@
 # Prefácio
 
-Use este manual para escrever o livro e preparar os arquivos de leitura. Comece com a primeira edição para testar a instalação. Se já mantém um livro, abra a ficha do TOML ou o capítulo de migração e trabalhe sobre uma cópia do manuscrito.
+Esta edição de exemplo acompanha a primeira montagem de um ebook. Edite o texto do primeiro capítulo e confira a mesma mudança no PDF e nos leitores digitais.

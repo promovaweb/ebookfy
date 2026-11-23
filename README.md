@@ -30,7 +30,9 @@ Edite `ebook.toml` na raiz para definir autoria, capa, ordem dos capítulos, pas
 
 Na aba **Livro**, escolha uma opção com as setas e abra com Enter ou com um clique. Use `f` para a ficha, `c` para capítulos, `a` para os arquivos gerados e `g` para o guia.
 
-![Menu da TUI com as quatro opções e o sumário do manual](manual/07-terminal/imagens/tui-livro.png)
+![Menu da TUI com as quatro opções e o sumário do exemplo](manual/07-terminal/imagens/tui-livro.png)
+
+No repositório do framework, o [livro de exemplo](ebook.toml) é **Meu primeiro ebook**. Abra o [primeiro capítulo](capitulos/01-primeiro-capitulo/CHAPTER.md), edite um parágrafo e execute `ebookfy build` na raiz para ler sua edição.
 
 ## Skills e documentação
 
@@ -40,7 +42,7 @@ O starter kit já traz as skills numeradas. Para instalá-las em outro projeto, 
 npx skills add promovaweb/ebookfy -a universal -a claude-code -a codex -a opencode -y
 ```
 
-Consulte o [manual editável](manual/01-primeira-edicao/CHAPTER.md), a [documentação completa](docs/README.md) ou baixe o [PDF](ebook/manual-ebookfy-v0.3.0.pdf), o [EPUB](ebook/manual-ebookfy-v0.3.0.epub) e o [MOBI](ebook/manual-ebookfy-v0.3.0.mobi). Em automações, use `ebookfy info --json`. A referência embutida está disponível com `ebookfy --skill`.
+Consulte o [manual editável](manual/01-primeira-edicao/CHAPTER.md), a [documentação completa](docs/README.md) ou baixe o [PDF](manual/ebook/manual-ebookfy-v0.3.1.pdf), o [EPUB](manual/ebook/manual-ebookfy-v0.3.1.epub) e o [MOBI](manual/ebook/manual-ebookfy-v0.3.1.mobi). Em automações, use `ebookfy info --json`. A referência embutida está disponível com `ebookfy --skill`.
 
 ## Feito com
 

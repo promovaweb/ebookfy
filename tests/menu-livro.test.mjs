@@ -30,7 +30,7 @@ for (const width of [64, 108]) {
           const row = rows[y];
           const x = Bun.stringWidth(row.slice(0, row.indexOf("Arquivos de saída")));
           await t.mockMouse.click(x, y);
-          assert.match(await frame(), /manual-ebookfy-v.*pdf/);
+          assert.match(await frame(), /primeiro-ebook-v.*pdf/);
           assert.match(await key("f"), /Editora/);
           await key("g");
           assert.match(await key("1"), /Editora/);
