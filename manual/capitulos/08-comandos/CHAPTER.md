@@ -89,8 +89,6 @@ fica indisponível. Cada ausência gera um aviso (`warn`). Dentro de um livro,
 o aviso indica quais formatos de `output.formats` dependem do conversor.
 O `epubcheck`, validador oficial do EPUB, é opcional: quando falta, o
 aviso traz o comando para validar o arquivo gerado.
-O `epubcheck`, validador oficial do EPUB, é opcional: quando falta, o
-aviso traz o comando para validar o arquivo gerado.
 O diagnóstico não cria arquivos nem mostra segredos.
 
 `ebookfy completion <shell>` imprime o script em stdout. O argument `shell`
